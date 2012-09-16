@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %} Запчасти на ВАЗ | Автозапчасти для ВАЗ | Крашеные запчасти {% endblock %}
+
+{% block extended_head %}
+    {{ header_content|safe }}
+{% endblock %}
+
+{% block content %}
+			<div id="container">
+				<div id="content">
+					{% if messages %}
+						{% for message in messages %}
+							<div class="alert alert-{{ message.tags }}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endif %}
+					<h2>О компании</h2> 
+					{{ about|safe }}
+					   <figure><h5>Новые поступления</h5>
+							 <div class="d-carousel">
+								  <ul class="carousel">
+										<li><p class="box_img"><a href="#"><img src="/static/images/item-1.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"><a href="#"><img src="/static/images/item-2.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"><a href="#"><img src="/static/images/item-3.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-4.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-5.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-1.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										 <li><p class="box_img"> <a href="#"><img src="/static/images/item-2.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-3.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-4.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+										<li><p class="box_img"> <a href="#"><img src="/static/images/item-5.jpg" alt="" /></a></p>
+										    <span><a href="#">Амортизатор ВАЗ-2101-07</a></span>
+										</li>
+								  </ul>
+							</div><!--.d-carousel-->
+
+					  </figure>
+
+					  <article>
+					<h2>Доставка и оплата</h2> <img src="/static/images/article-1.png"><p>{{ delivery }} <a href="/delivery">далее</a></p>
+					  </article>
+						<article class="art-2">
+					<h2>Ассортимент</h2> <img src="/static/images/article-3.png"> <p> {{ catalog }}  <!--<a href="/catalog">далее</a></p>-->
+					  </article> 
+						<article>
+					<h2>Наши гарантии</h2> <img src="/static/images/article-2.png">
+					<p>{{ warranty }} <a href="/warranty">далее</a></p>
+					  </article>
+					   <article class="art-2">
+					 <h2>Скидки и акции</h2><img src="/static/images/article-4.png"> <p>{{ sale }} <a href="/sale">далее</a></p>
+					  </article>  
+     
+		      </div><!-- #content-->
+
+
+			  <aside>
+				<h2>Новости</h2>
+					{% for n in news %}
+						<article>
+							<time pubedate>{{ n.date.date }}</time>
+							<h3><u>{{ n.name }}</u></h3> 
+							<p>{{ n.text }}</p>
+						</article> 
+					{% endfor %}
+					<div class="images">
+					<img src="/static/images/cars.jpg"></div>
+					<img class="img_bottom" src="/static/images/figure.jpg">
+					
+				</aside>
+	    </div><!-- #container-->
+{% endblock %}

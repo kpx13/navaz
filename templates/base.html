@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+    <head>
+	  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	  <title>{% block title %} Запчасти на ВАЗ {% endblock %}</title>
+	  <meta name="description" content="" />
+	  <meta name="keywords" content="" />
+	  <link rel="stylesheet" href="/static/styles/style.css">
+	  <script src="/static/js/jquery-1.7.2.min.js"></script>
+	<script src="/static/js/slides.min.jquery.js"></script>
+	  <script type="text/javascript" src="/static/js/jquery.jcarousel.js"></script>
+	  <script>
+			jQuery(document).ready(function() {
+			// Initialise the first and second carousel by class selector.
+			// Note that they use both the same configuration options (none in this case).
+			jQuery('.d-carousel .carousel').jcarousel({
+				scroll: 1
+			});
+		});
+	</script>
+
+		  <!--[if lt IE 9]> 
+		  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
+		  <![endif]-->
+	    {% block extended_head %}
+	    {% endblock %}
+    </head>
+    <body id="list">
+      <header>
+		<div id="header">
+			<a href="/"><img src="/static/images/logo2.jpg"></a>
+			<div class="boxes">
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box last"></div>
+				<div class="box last"></div>
+			</div><!--.boxes-->
+			<div id="shedule">
+				<p class="caption">График работы:</p>
+				<p class="one">Пн-Сб</p>
+				<p class="two">10:00 - 21:00</p>
+				<p class="one">Вс</p>
+				<p class="two">Выходной</p>
+			</div><!--#shedule-->
+			<div id="contacts">
+				 <table><tr>
+							<td>&nbsp;</td>
+							<td></td>
+				        </tr>
+					    <tr>
+							<td class="right">skype </td>
+							<td>navaz</td>
+					    </tr>
+					    <tr>
+						    <td class="right">email </td>
+							<td><a href="mailto:info@navaz.ru">info@navaz.ru</a></td>
+					    </tr>
+				 </table>
+				 <div class="share42init"></div>
+							<script type="text/javascript" src="/static/js/share42/share42.js"></script>
+							<script type="text/javascript">share42('/static/js/share42/')</script>
+			</div><!--#contacts-->
+				<div class="phone">
+						<h4>Телефоны:</h4>
+						<p class="number"><span>+7 (926)</span> 652-36-66 </p>
+						<p class="number"><span>+7 (926)</span> 635-56-66</p>
+				</div><!--#phone-->
+				<div id="entry">
+				 <p>Задать вопрос,<br /> сделать заказ <br />или заказать <br /> обратный звонок<br /> Вы можете<a href="/request">здесь</a>
+				 </p>
+<!--						<p><label for="login">Логин</label>
+							<input type="text" id="login" />
+							<input type="checkbox" id="remember" />
+							<label for="remember">Запомнить</label></p>
+						<p><label for="pass">Пароль</label><input type="password" id="pass" />
+							<input type="button" id="button-entry" value="вход" /></p>
+						<p><a href="#">Забыли пароль?</a>
+							<a href="#">Регистрация</a></p>-->
+				</div><!--#entry-->
+		</div><!--#header-->
+	</header>
+    <nav>
+	 <ul>
+            <li><a href="/" {% if 'home' in request_url %} class='list' {% endif %}>Главная</a></li>
+            <li><a href="/about" {% if 'about' in request_url %} class='list' {% endif %}>О компании</a></li>
+            <li><a href="/contacts" {% if 'contacts' in request_url %} class='list' {% endif %}>Контакты</a></li>
+            <li><a href="/delivery" {% if 'delivery' in request_url %} class='list' {% endif %}>Доставка и оплата</a></li>
+            <li><a href="/sale" {% if 'sale' in request_url %} class='list' {% endif %}>Скидки и акции</a></li>
+<!--             <li><a href="/catalog" {% if 'catalog' in request_url %} class='list' {% endif %}>Каталог</a></li> -->
+<!--             <li><a href="#">Отзывы</a></li> -->
+<!--             <li><a href="/articles" {% if 'articles' in request_url %} class='list' {% endif %}>Статьи</a></li> -->
+            <li><a href="/warranty" {% if 'warranty' in request_url %} class='list' {% endif %}>Гарантии</a></li>
+            <li><a href="/request" {% if 'request' in request_url %} class='list' {% endif %}>Написать нам</a></li>
+         </ul>
+    </nav>
+<!--    <div id="search">
+			<aside>
+					<img id="logo-out" src="/static/images/logo-out.png">
+				    <div id="basket">
+						  <img src="/static/images/basket.jpg">
+						  <section>
+							  <p>В вашей корзине:<br> <b>3 товара</b></p>
+							  <p>На сумму: <span class="red"> 19600</span></p>
+							  <p>Предоплата:<span class="blue"> 3600</span></p>
+							  <a href="index_2.html">Оформить заказ</a>
+						  </section>
+					</div>
+				    <input type="text" name="search" id="poisk" placeholder="Что будем искать?">
+					<p><select class="auto" size="1" name="auto-select">
+							<option selected>Выбор марки авто</option>
+							<option value="Vaz-2121">Ваз-2121</option>
+							<option value="Vaz-1313">ВАЗ-1313</option>
+							<option value="Vaz-1414">Ваз-1414</option>
+							<option value="Vaz-1525">ВАЗ-1525</option>
+					   </select>
+					   <select class="color" size="1" name="color-select">
+							<option selected>Выбор цвета</option>
+							<option value="Белый">Белый</option>
+							<option value="Красный">Красный</option>
+							<option value="Синий">Синий</option>
+							<option value="Желтый">Желтый</option>
+				       </select>
+					</p>
+					<p><select class="type" size="1" name="type-select">
+							<option selected>Тип детали</option>
+							<option value="Vaz-2121">Ваз-2121</option>
+							<option value="Vaz-1313">ВАЗ-1313</option>
+							<option value="Vaz-1414">Ваз-1414</option>
+							<option value="Vaz-1525">ВАЗ-1525</option>
+				       </select>
+				       <input type="button" id="search-button" value="Найти" />
+					</p>
+		        </aside>
+    </div>--><!--#search-->
+
+	<div id="middle">
+		  {% block content %}
+		  
+		  {% endblock %}
+	</div><!-- #middle-->
+
+	<footer>
+		  <div id="footer">
+			  <div class="foot">
+				  <a href="/"><img src="/static/images/logo-foot.jpg"></a>
+				  <p>Интернет-магазин автозапчастей для автомобилей марки «ВАЗ»</p>
+				  <img src="/static/images/counter.jpg">
+			  </div><!--.foot-->
+			  <div class="foot left"><h6><a href="/delivery">Доставка и оплата</a></h6>
+				  <p>Здесь тоже написать ченить, про доставку или хз про что, может про наличие.</p>
+			  </div><!--.foot.left-->
+			  <div class="foot">				
+			       <table>
+				         <tr>
+						     
+						 <tr>
+						     <td class="right">skype </td>
+							 <td>navaz</td>
+						</tr>
+						<tr><td class="right">email </td>
+							<td><a href="mailto:info@navaz.ru">info@navaz.ru</a></td>
+						</tr>
+					</table>
+				    <div class="phone-foot">		<h4>Телефоны:</h4>
+							<p class="number"><span>+7 (926)</span> 652-36-66 </p>
+							<p class="number"><span>+7 (926)</span> 635-56-66</p>
+					</div><!--.phone-foot-->
+			  </div><!--.foot-->
+			  <div class="foot"><ul>
+									<li><a href="/">Главная</a></li>
+									<li><a href="/about">О компании</a></li>
+									<li><a href="/contacts">Контакты</a></li>
+									<li><a href="/delivery">Доставка и оплата</a></li>
+									<li><a href="/sale">Скидки и акции</a></li>
+<!-- 									<li><a href="/articles">Статьи</a></li> -->
+									<li><a href="/warranty">Гарантии</a></li>
+									<li><a href="/request">Написать нам</a></li>
+			               		</ul> 
+			  </div><!--.foot-->
+	     </div><!--#footer-->		  
+      </footer>
+   </body>
+</html>
