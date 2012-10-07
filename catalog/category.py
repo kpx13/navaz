@@ -4,7 +4,6 @@ from django.db import models
 
 class Category(models.Model):   # например, передний бампер
     name = models.CharField(max_length=512, verbose_name=u'название')
-    alt_name = models.CharField(max_length=512, blank=True, verbose_name=u'альтернативное название')
     image = models.ImageField(upload_to='uploads/categories', max_length=256, null=True, blank=True, verbose_name=u'изображение')
 
     @staticmethod

@@ -10,12 +10,12 @@
 {% block content %}
 <div id="wrapper">
 				  <h2>Каталог</h2><p><img src="/static/images/paper.png">
-				  <a href="/catalog?car_model={{ item.car_model.id }}"> ВАЗ {{ item.car_model.name }}</a> 
+				  <a href="/catalog?car_model={{ item.car_model.id }}"> {{ item.car_model.full_name }}</a> 
 				  &#8722; <a href="/catalog?car_model={{ item.car_model.id }}&category={{ item.category.id }}">{{ item.category.name }}</a> 
 				  &#8722; {{ item.name }}</p>
 				  
-				  <div class="item first"><img src="/static/images/carburator.jpg" alt=""></div>
-				  <div class="item second"><h4>{{ item.name }} на ВАЗ {{ item.car_model.name }}</h4><p>{{ item.description }} </p></div>
+				  <div class="item first"><img src="/static/images/carburator.jpg" alt="{{ item.name }} на {{ item.car_model.full_name }}"></div>
+				  <div class="item second"><h4>{{ item.name }} на {{ item.car_model.full_name }}</h4><p>{{ item.description }} </p></div>
 				  <div class="item third">
 						  <table id="description" rules="all"  border="1">
 							  <tr>
@@ -24,7 +24,7 @@
 							  </tr>
 							  <tr>
 								  <td>Марка авто</td>
-								  <td><span>ВАЗ {{ item.car_model.name }}</span></td>
+								  <td><span>{{ item.car_model.full_name }}</span></td>
 							  </tr>
 							  <!--<tr>
 								  <td>Производитель</td>
@@ -32,7 +32,7 @@
 							  </tr>-->
 							  <tr>
 								  <td>Цвет</td>
-								  <td>{% if item.colour %} {{ item.colour.name }} {% else %} Без цвета {% endif %}</td>
+								  <td>{% if item.color %} {{ item.color.name }} {% else %} Без цвета {% endif %}</td>
 							  </tr>
 							  <tr>
 								  <td>Наличие</td>

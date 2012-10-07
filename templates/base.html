@@ -113,7 +113,7 @@
 					<p><select class="auto" size="1" name="car_model">
 							<option value='0'>Все марки авто</option>
 							{% for c in car_models %}
-								<option value="{{ c.id }}" {% if car_model == c.id %} selected {% endif %}>ВАЗ {{ c.name }}</option>
+								<option value="{{ c.id }}" {% if car_model == c.id %} selected {% endif %}>{{ c.full_name }}</option>
 							{% endfor %}
 					   </select>
 					   <select class="color" size="1" name="color">

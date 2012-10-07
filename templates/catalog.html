@@ -12,13 +12,13 @@
        <p>
 		<img src="/static/images/paper.png">
 		{% if car_model %}
-			<a href="/catalog?car_model={{ car_model }}"> ВАЗ {{ car_model_name }}</a> 
+			<a href="/catalog?car_model={{ car_model }}"> {{ car_model_name }}</a> 
 			{% if category %}
 				&#8722; <a href="/catalog?car_model={{ car_model }}&category={{ category }}">{{ category_name }}</a> 
 			{% endif %}
 		{% endif %}
        </p>
-		{% if items %}
+		{% if items.object_list %}
 		   <table class="catalog" rules="all" border="1">
 			  <tr>
 <!-- 				  <td>Производитель</td> -->
@@ -33,7 +33,7 @@
 				  <td>В корзину</td>
 			  </tr>
 			  
-			  {% for i in items %}
+			  {% for i in items.object_list %}
 			  
 			  <tr>
 				  <td><img src="/static/images/photo.jpg" alt='{{ i.name }}' ></td>
@@ -42,9 +42,9 @@
 					<p><h3><a href="/item/{{ i.id }}">{{ i.name }}</a></h3> <!--узел системы питания ДВС Отто, предназначенный для создания горючей смеси оптимального состава путем смешивания&#8230;</p><a href="Index_4.html">&#62;&#62;</a>-->
 					</p>
 				  </td>
-				  <td>ВАЗ {{ i.car_model.name }}</td>
+				  <td>{{ i.car_model.full_name }}</td>
 <!-- 				  <td><a href="#">Jurid/Bendix</a></td> -->
-				  <td>{% if i.colour %} {{ i.colour.name }} {% else %} --- {% endif %}</td>
+				  <td>{% if i.color %} {{ i.color.name }} {% else %} --- {% endif %}</td>
 				  <td class="color">
 					<span class="green"></span>
 					<span class="green"></span>

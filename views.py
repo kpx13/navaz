@@ -10,13 +10,13 @@ from django.template import RequestContext
 from request.forms import RequestForm
 from pages.models import Page
 from news.models import NewsItem
-from catalog.models import CarModel, Item, Colour, Category
+from catalog.models import CarModel, Item, Color, Category
 
 def get_common_context(request):
     c = {}
     c['request_url'] = request.path
     c['car_models'] = CarModel.objects.all()
-    c['colors'] = Colour.objects.all()
+    c['colors'] = Color.objects.all()
     c['categories'] = Category.objects.all()
     c.update(csrf(request))
     return c
@@ -43,7 +43,7 @@ def catalog_page(request):
         items = items.filter(car_model=car_model)
         c['car_model_name'] = CarModel.get_name(car_model)
     if color:
-        items = items.filter(colour=color)
+        items = items.filter(color=color)
     if category:
         items = items.filter(category=category)
         c['category_name'] = Category.get_name(category)
