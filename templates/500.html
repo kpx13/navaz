@@ -1,72 +1,184 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-  <title>LANG-line | Ошибка</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/index.css" media="all" />
-  <!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/ie.css" media="all" /><![endif]-->
+    <head>
+	  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	  <title>{% block title %} Запчасти на ВАЗ {% endblock %}</title>
+	  <meta name="description" content="" />
+	  <meta name="keywords" content="" />
+	  <link rel="stylesheet" href="/static/styles/style.css">
+	  <script src="/static/js/jquery-1.7.2.min.js"></script>
+	<script src="/static/js/slides.min.jquery.js"></script>
+	  <script type="text/javascript" src="/static/js/jquery.jcarousel.js"></script>
+	  <script>
+			jQuery(document).ready(function() {
+			// Initialise the first and second carousel by class selector.
+			// Note that they use both the same configuration options (none in this case).
+			jQuery('.d-carousel .carousel').jcarousel({
+				scroll: 1
+			});
+			    {% block extended_head %}
+	    {% endblock %}});
+	</script>
 
-</head>
-<body id="index">
-  <!-- #container -->
-  <div id="container">
-    <!-- #head -->
-    <div id="head">
-      <!-- .head-in -->
-      <div class="head-in">
-        <h1>
-          <a href="/"><em>Иностранные языки</em> по Skype</a>
-        </h1>
-        <div class="login-link">
-          <a href="#">Личный кабинет</a>
-        </div>
-      </div>
-      <!--// .head-in -->
-      <!-- .menu -->
-      <div class="menu">
-        <ul class="menu-in">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/about">О нас</a></li>
-                <li><a href="/price">Цены и курсы</a></li>
-                <li><a href="/reviews">Отзывы</a></li>
-                <li><a href="/questions">Вопросы и ответы</a></li>
-                <li><a href="/contacts">Контакты</a></li>
-        </ul>
-      </div>
-      <!--// .menu -->
+		  <!--[if lt IE 9]> 
+		  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
+		  <![endif]-->
+    </head>
+    <body id="list">
+      <header>
+		<div id="header">
+			<a href="/"><img src="/static/images/logo2.jpg"></a>
+			<div class="boxes">
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box last"></div>
+				<div class="box last"></div>
+			</div><!--.boxes-->
+			<div id="shedule">
+				<p class="caption">График работы:</p>
+				<p class="one">Пн-Сб</p>
+				<p class="two">10:00 - 21:00</p>
+				<p class="one">Вс</p>
+				<p class="two">Выходной</p>
+			</div><!--#shedule-->
+			<div id="contacts">
+				 <table><tr>
+							<td>&nbsp;</td>
+							<td></td>
+				        </tr>
+					    <tr>
+							<td class="right">skype </td>
+							<td>navaz</td>
+					    </tr>
+					    <tr>
+						    <td class="right">email </td>
+							<td><a href="mailto:info@navaz.ru">info@navaz.ru</a></td>
+					    </tr>
+				 </table>
+				 <div class="share42init"></div>
+							<script type="text/javascript" src="/static/js/share42/share42.js"></script>
+							<script type="text/javascript">share42('/static/js/share42/')</script>
+			</div><!--#contacts-->
+				<div class="phone">
+						<h4>Телефон:</h4>
+						<p class="number"><span>+7 (926)</span> 652-23-33  </p>
+						<p class="number">Мы находимся в Москве</p>
+				</div><!--#phone-->
+				<div id="entry">
+				
+						<p><label for="login">Логин</label>
+							<input type="text" id="login" />
+						<p><label for="pass">Пароль</label><input type="password" id="pass" />
+							<input type="button" id="button-entry" value="вход" /></p>
+						<p><a href="#">Забыли пароль?</a>
+							<a href="#">Регистрация</a></p>
+				</div><!--#entry-->
+		</div><!--#header-->
+	</header>
+    <nav>
+	 <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/about">О компании</a></li>
+            <li><a href="/delivery">Доставка и оплата</a></li>
+            <li><a href="/sale">Скидки и акции</a></li>
+	    <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/request">Написать нам</a></li>
+         </ul>
+    </nav>
+    <div id="search">
+			<aside>
+				    <img id="logo-out" src="/static/images/logo-out.png">
+				    <div id="basket">
+						  <img src="/static/images/basket.jpg">
+						  <section>
+							<p><span class="blue">Приносим свои извинения!</span></p>
+							<p>Интернет Магазин находтся<br /> в разработке. 
+							Вы можете оформить онлайн заказ <br /> <a href='/request'>здесь</a>.
+							</p>
+<!-- 							  <p>В вашей корзине:<br> <b>3 товара</b></p> -->
+<!-- 							  <p>На сумму: <span class="red"> 19600 руб.</span></p> -->
+<!-- 							  <p>Предоплата:<span class="blue"> 3600</span></p> -->
+<!-- 							  <a href="/cart">Перейти в корзину</a> -->
+						  </section>
+					</div>
+					
+				<form method='get' action='/catalog'>
+				    <input type="text" name="search" id="poisk" placeholder="Что будем искать?" value='{{ search }}'>
+					<p><select class="auto" size="1" name="car_model">
+							<option value='0'>Все марки авто</option>
+							{% for c in car_models %}
+								<option value="{{ c.id }}" {% if car_model == c.id %} selected {% endif %}>{{ c.full_name }}</option>
+							{% endfor %}
+					   </select>
+					   <select class="color" size="1" name="color">
+							<option value='0'>Все цвета</option>
+							{% for c in colors %}
+								<option value="{{ c.id }}" {% if color == c.id %} selected {% endif %}>{{ c.name }}</option>
+							{% endfor %}
+				       </select>
+					</p>
+					<p><select class="type" size="1" name="category">
+							<option value='0'>Все детали</option>
+							{% for c in categories %}
+								<option value="{{ c.id }}" {% if category == c.id %} selected {% endif %}>{{ c.name }}</option>
+							{% endfor %}
+				       </select>
+				       <input type="submit" id="search-button" value="Найти" />
+					</p>
+				</form>
+		        </aside>
     </div>
-    <!--// #head -->
 
+	<div id="middle">
+		<div id='wrapper'>
+			<h2>500.</h2>
+			<p>Внутренняя ошибка сервера.</p>
+		</div>
+	</div><!-- #middle-->
 
-    <!-- #main -->
-    <div id="main">
-      <!-- #content -->
-      <div id="content">
-          <h1>500.</h1>
-          <p>Внутренняя ошибка сервера.</p>
-      </div>
-      <!--// #content -->
-    </div>
-    <!--// #main -->
-    <div class="empty"></div>
-  </div>
-  <!--// #container -->
-  <!-- #footer -->
-  <div id="footer">
-    <div class="footer-in">
-      <ul class="f-contacts">
-        <li>Телефон: <span class="tel">495 567-65-67</span></li>
-        <li>E-mail: <a href="#">englin@mail.ru</a></li>
-        <li class="skype"><a href="#">skype</a></li>
-      </ul>
-      <ul class="copyright">
-        <li>Все права защищены. 2012.</li>
-        <li>Web-design: <a href="#">Elizart.ru</a></li>
-      </ul>
-      <i class="f-left-pic"></i>
-      <i class="f-right-pic"></i>
-    </div>
-  </div>
-  <!--// #footer -->
-</body>
+	<footer>
+		  <div id="footer">
+			  <div class="foot">
+				  <a href="/"><img src="/static/images/logo-foot.jpg"></a>
+				  <p>Интернет-магазин автозапчастей для автомобилей марки «ВАЗ»</p>
+				  <img src="/static/images/counter.jpg">
+			  </div><!--.foot-->
+			  <div class="foot left">
+				<p><a href='#'>Скачать прайс</a></p>
+				<h6><a href="http://webgenesis.ru" targen='blank'>Сайт создан в студии webgenesis.ru</a></h6>
+				  
+			  </div><!--.foot.left-->
+			  <div class="foot">				
+			       <table>
+				         <tr>
+						     
+						 <tr>
+						     <td class="right">skype </td>
+							 <td>navaz</td>
+						</tr>
+						<tr><td class="right">email </td>
+							<td><a href="mailto:info@navaz.ru">info@navaz.ru</a></td>
+						</tr>
+					</table>
+				    <div class="phone-foot">		<h4>Телефоны:</h4>
+							<p class="number"><span>+7 (926)</span> 652-23-33 </p>
+					</div><!--.phone-foot-->
+			  </div><!--.foot-->
+			  <div class="foot"><ul>
+									<li><a href="/">Главная</a></li>
+									<li><a href="/about">О компании</a></li>
+									<li><a href="/contacts">Контакты</a></li>
+									<li><a href="/delivery">Доставка и оплата</a></li>
+									<li><a href="/sale">Скидки и акции</a></li>
+<!-- 									<li><a href="/articles">Статьи</a></li> -->
+									<li><a href="/warranty">Гарантии</a></li>
+									<li><a href="/request">Написать нам</a></li>
+			               		</ul> 
+			  </div><!--.foot-->
+	     </div><!--#footer-->		  
+      </footer>
+   </body>
 </html>

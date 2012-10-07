@@ -168,9 +168,7 @@ AUTH_PROFILE_MODULE = 'users.UserProfile'
 CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'uploads')
 CKEDITOR_MEDIA_PREFIX = '/media/ckeditor/'
 
-"""
-SEND_ALERT_EMAIL = ['Cargo.Info77@gmail.com',]
-DEFAULT_FROM_EMAIL = 'cargo@annkpx.ru'
-EMAIL_HOST_USER = 'cargo'
-EMAIL_HOST_PASSWORD = '123123'
-"""
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = 'noreply@navaz.ru'
+EMAIL_HOST_PASSWORD = 'noreplynoreply'
+EMAIL_USE_TLS = False

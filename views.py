@@ -12,6 +12,14 @@ from pages.models import Page
 from news.models import NewsItem
 from catalog.models import CarModel, Item, Color, Category
 
+ADMINS = ['annkpx@gmail.com']
+
+def send_mail_to_admin(data):
+    from django.core.mail import send_mail
+    text= u'Имя: ' + data['name'] + u"\n" + u'email: ' + data['email'] + '\n' + u'Телефон: ' + data['phone'] + '\n' + u'Текст: ' + data['comment'] + '\n'
+    send_mail('Новое сообщение с сайта', text , 'noreply@navaz.ru', ADMINS, fail_silently=False)
+
+
 def get_common_context(request):
     c = {}
     c['request_url'] = request.path
@@ -84,6 +92,7 @@ def request_page(request):
     else:
         form = RequestForm(request.POST)
         if form.is_valid():
+            send_mail_to_admin(form.cleaned_data)
             form.save()
             form = RequestForm()
             messages.success(request, u'Ваш запрос отправлен.')
@@ -98,8 +107,8 @@ def other_page(request, page_name):
         c.update(Page.get_page_by_slug(page_name))
         return render_to_response('page.html', c, context_instance=RequestContext(request))
     except:
-        #return HttpResponseNotFound('page not found')
-        return render_to_response('base.html', c, context_instance=RequestContext(request))
+        return HttpResponseNotFound('page not found')
+        #return render_to_response('base.html', c, context_instance=RequestContext(request))
 
 
 def insert_test_data(request):
