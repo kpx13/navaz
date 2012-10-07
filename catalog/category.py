@@ -19,6 +19,13 @@ class Category(models.Model):   # например, передний бампе�
             cm = Category(name=name)
             cm.save()
             return cm
+        
+    @staticmethod
+    def get_name(id_):
+        try:
+            return Category.objects.get(id=id_).name
+        except:
+            return None
     
     class Meta:
         verbose_name = 'категория'

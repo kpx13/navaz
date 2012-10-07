@@ -18,6 +18,13 @@ class CarModel(models.Model):
             cm = CarModel(name=name)
             cm.save()
             return cm
+    
+    @staticmethod
+    def get_name(id_):
+        try:
+            return CarModel.objects.get(id=id_).name
+        except:
+            return None
         
     
     class Meta:

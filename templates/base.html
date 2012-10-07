@@ -69,16 +69,13 @@
 						<p class="number">Мы находимся в Москве</p>
 				</div><!--#phone-->
 				<div id="entry">
-				 <p>Задать вопрос,<br /> сделать заказ <br />или заказать <br /> обратный звонок<br /> Вы можете<a href="/request">здесь</a>
-				 </p>
-<!--						<p><label for="login">Логин</label>
+				
+						<p><label for="login">Логин</label>
 							<input type="text" id="login" />
-							<input type="checkbox" id="remember" />
-							<label for="remember">Запомнить</label></p>
 						<p><label for="pass">Пароль</label><input type="password" id="pass" />
 							<input type="button" id="button-entry" value="вход" /></p>
 						<p><a href="#">Забыли пароль?</a>
-							<a href="#">Регистрация</a></p>-->
+							<a href="#">Регистрация</a></p>
 				</div><!--#entry-->
 		</div><!--#header-->
 	</header>
@@ -96,38 +93,45 @@
     </nav>
     <div id="search">
 			<aside>
-					<img id="logo-out" src="/static/images/logo-out.png">
+				    <img id="logo-out" src="/static/images/logo-out.png">
 				    <div id="basket">
 						  <img src="/static/images/basket.jpg">
 						  <section>
-							  <p>В вашей корзине:<br> <b>3 товара</b></p>
-							  <p>На сумму: <span class="red"> 19600</span></p>
-							  <p>Предоплата:<span class="blue"> 3600</span></p>
-							  <a href="index_2.html">Оформить заказ</a>
+							<p><span class="blue">Приносим свои извинения!</span></p>
+							<p>Интернет Магазин находтся<br /> в разработке. 
+							Вы можете оформить онлайн заказ <br /> <a href='/request'>здесь</a>.
+							</p>
+<!-- 							  <p>В вашей корзине:<br> <b>3 товара</b></p> -->
+<!-- 							  <p>На сумму: <span class="red"> 19600 руб.</span></p> -->
+<!-- 							  <p>Предоплата:<span class="blue"> 3600</span></p> -->
+<!-- 							  <a href="/cart">Перейти в корзину</a> -->
 						  </section>
 					</div>
-				    <input type="text" name="search" id="poisk" placeholder="Что будем искать?">
-					<p><select class="auto" size="1" name="auto-select">
-							<option selected>Все марки авто</option>
-							{% for car in car_models %}
-								<option value="{{ car.id }}">ВАЗ {{ car.name }}</option>
+					
+				<form method='get' action='/catalog'>
+				    <input type="text" name="search" id="poisk" placeholder="Что будем искать?" value='{{ search }}'>
+					<p><select class="auto" size="1" name="car_model">
+							<option value='0'>Все марки авто</option>
+							{% for c in car_models %}
+								<option value="{{ c.id }}" {% if car_model == c.id %} selected {% endif %}>ВАЗ {{ c.name }}</option>
 							{% endfor %}
 					   </select>
-					   <select class="color" size="1" name="color-select">
-							<option selected>Все цвета</option>
+					   <select class="color" size="1" name="color">
+							<option value='0'>Все цвета</option>
 							{% for c in colors %}
-								<option value="{{ c.id }}">{{ c.name }}</option>
+								<option value="{{ c.id }}" {% if color == c.id %} selected {% endif %}>{{ c.name }}</option>
 							{% endfor %}
 				       </select>
 					</p>
-					<p><select class="type" size="1" name="type-select">
-							<option selected>Все детали</option>images/
+					<p><select class="type" size="1" name="category">
+							<option value='0'>Все детали</option>
 							{% for c in categories %}
-								<option value="{{ c.id }}">{{ c.name }}</option>
+								<option value="{{ c.id }}" {% if category == c.id %} selected {% endif %}>{{ c.name }}</option>
 							{% endfor %}
 				       </select>
-				       <input type="button" id="search-button" value="Найти" />
+				       <input type="submit" id="search-button" value="Найти" />
 					</p>
+				</form>
 		        </aside>
     </div>
 

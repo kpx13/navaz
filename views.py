@@ -34,17 +34,48 @@ def home_page(request):
 
 def catalog_page(request):
     c = get_common_context(request)
+    car_model = int(request.GET.get('car_model', '0'))
+    category = int(request.GET.get('category', '0'))
+    color = int(request.GET.get('color', '0'))
+    search = request.GET.get('search', '')
     items = Item.objects.all()
+    if car_model:
+        items = items.filter(car_model=car_model)
+        c['car_model_name'] = CarModel.get_name(car_model)
+    if color:
+        items = items.filter(colour=color)
+    if category:
+        items = items.filter(category=category)
+        c['category_name'] = Category.get_name(category)
+    if search:
+        items = items.filter(name__icontains=search)
+        
+    c['car_model'] = car_model
+    c['color'] = color
+    c['category'] = category
+    c['search'] = search
+    c['get_request'] = c['request_url'] + "?car_model=%s&category=%s&color=%s&search=%s" % (car_model, category, color, search)
     paginator = Paginator(items, 15)
-    page = request.GET.get('page', '1')
+    page = int(request.GET.get('page', '1'))
     try:
         c['items'] = paginator.page(page)
     except PageNotAnInteger:
-        c['items'] = paginator.page(1)
+        page = 1
+        c['items'] = paginator.page(page)
     except EmptyPage:
-        c['items'] = paginator.page(paginator.num_pages)
-    
+        page = paginator.num_pages
+        c['items'] = paginator.page(page)
+    c['page'] = page
+    c['page_range'] = paginator.page_range
+    if len(c['page_range']) > 1:
+        c['need_pagination'] = True
     return render_to_response('catalog.html', c, context_instance=RequestContext(request))
+
+def item_page(request, item_id):
+    c = get_common_context(request)
+    c['item'] = Item.get(item_id)
+    print c['item']
+    return render_to_response('item.html', c, context_instance=RequestContext(request))
 
 def request_page(request):
     c = get_common_context(request)
@@ -58,7 +89,7 @@ def request_page(request):
             messages.success(request, u'Ваш запрос отправлен.')
             return HttpResponseRedirect('/')
         else:
-            messages.error(request, u'Возникла ошибка при отправлении сообщения.')
+            c['request_form'] = form
     return render_to_response('request.html', c, context_instance=RequestContext(request))
 
 def other_page(request, page_name):

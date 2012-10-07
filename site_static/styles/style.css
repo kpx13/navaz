@@ -146,7 +146,7 @@ h6{margin-bottom: 20px;}
 -----------------------------------------------------------------------------*/
 #middle2 {height: 1%;position: relative;padding: 0 0 20px;}
 #middle2:after {content: '.';	display: block;clear: both;visibility: hidden;height: 0;}
-#wrapper {width: 1000px;margin: 0 auto;position:relative;padding: 28px 0 0 7px;font-family:Tahoma, Geneva, sans-serif;font-size:11px;line-height: 14px;}
+#wrapper {width: 1000px; min-height: 400px; margin: 0 auto;position:relative;padding: 28px 0 0 7px;font-family:Tahoma, Geneva, sans-serif;font-size:11px;line-height: 14px;}
 #wrapper a{color:#0669b2;}
 #wrapper h2{float:left; margin-right: 15px;}
 #wrapper p{color:#000;}
@@ -261,3 +261,63 @@ table#description span{font-weight: bold;}
 
 #page_nav .page_navigation ul li.active a{color:#0669b2;font-weight: bold;}
 #page_nav .page_navigation ul li.active {border-color:#b8b9b9;color:#0669b2;font-weight: bold;}
+
+table.request {border-collapse:collapse;color:#737373;line-height: 14px;width:500px;text-align:center; margin: 0 auto}
+table.request input {border:1px solid #737373; width: 400px}
+table.request textarea {border-color:#737373; width: 400px}
+
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  color: #c09853;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.alert-heading {
+  color: inherit;
+}
+
+.alert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 18px;
+}
+
+.alert-success {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger,
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+ }
+
+.alert-info {
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+ }
+
+.alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+ }
+
+.alert-block > p,
+.alert-block > ul {
+  margin-bottom: 0;
+ }
+
+-.alert-block p + p {
+ margin-top: 5px;
+ }

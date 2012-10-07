@@ -1,0 +1,59 @@
+ 
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extended_head %}
+    {{ header_content|safe }}
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+				  <h2>Каталог</h2><p><img src="/static/images/paper.png">
+				  <a href="/catalog?car_model={{ item.car_model.id }}"> ВАЗ {{ item.car_model.name }}</a> 
+				  &#8722; <a href="/catalog?car_model={{ item.car_model.id }}&category={{ item.category.id }}">{{ item.category.name }}</a> 
+				  &#8722; {{ item.name }}</p>
+				  
+				  <div class="item first"><img src="/static/images/carburator.jpg" alt=""></div>
+				  <div class="item second"><h4>{{ item.name }} на ВАЗ {{ item.car_model.name }}</h4><p>{{ item.description }} </p></div>
+				  <div class="item third">
+						  <table id="description" rules="all"  border="1">
+							  <tr>
+								  <td>Артикул</td>
+								  <td><span>{{ item.art }}</span></td>
+							  </tr>
+							  <tr>
+								  <td>Марка авто</td>
+								  <td><span>ВАЗ {{ item.car_model.name }}</span></td>
+							  </tr>
+							  <!--<tr>
+								  <td>Производитель</td>
+								  <td><span>KYB</span></td>
+							  </tr>-->
+							  <tr>
+								  <td>Цвет</td>
+								  <td>{% if item.colour %} {{ item.colour.name }} {% else %} Без цвета {% endif %}</td>
+							  </tr>
+							  <tr>
+								  <td>Наличие</td>
+								   <td class="color"> <span class="green"></span>
+													  <span class="green"></span>
+													  <span class="green"></span>
+													  <span class="green"></span>
+													  <span class="green"></span>(Много)</td>
+							  </tr>
+						</table>
+						<div id="in_box"><!--<input type="button" id="total" value="В корзину" name="in_basket"/>-->
+							  <table class="price"><tr>
+								  <td>Цена</td>
+								  <td><span class="red"> {{ item.price }} руб.</span></td>
+							  </tr>
+							  <!--<tr>
+								  <td>Предоплата</td>
+								  <td><span class="blue">1200 руб.</span></td>
+							  </tr>-->
+						</table>
+						</div><!--#in_box-->
+			</div><!--.item third-->
+		</div><!--#wrapper-->
+{% endblock %}

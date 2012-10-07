@@ -41,16 +41,20 @@ class Item(models.Model):   # задний бампер, цвет персей, 
     profit = models.FloatField(verbose_name=u'профит')
     prepayment = models.FloatField(verbose_name=u'предоплата', null=True, blank=True)
     image = models.ImageField(upload_to='uploads/items', max_length=256, blank=True, verbose_name=u'изображение')
-    description = models.TextField(blank=True, verbose_name=u'описание')
+    description = models.TextField(default=u'У товара нет подробного описания.', verbose_name=u'описание')
     stock = models.IntegerField(default=0, verbose_name=u'в наличии')
-    
-    show = models.BooleanField(default=True, verbose_name=u'показывать на сайте?')
-    position = models.IntegerField(default=0, blank=True, verbose_name=u'параметр для сортировки')
+
+    @staticmethod
+    def get(id_):
+        try:
+            return Item.objects.get(id=id_)
+        except:
+            return None
     
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
-        ordering=['position']
+        ordering=['name']
         
     def __unicode__(self):
         return self.name
