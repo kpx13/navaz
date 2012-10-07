@@ -4,16 +4,26 @@ from django.db import models
 
 class Category(models.Model):   # например, передний бампер
     name = models.CharField(max_length=512, verbose_name=u'название')
-    parent = models.ForeignKey('self', null=True, blank=True, verbose_name=u'Родительская категория')
-    image = models.ImageField(upload_to='uploads/categories', max_length=256, blank=True, verbose_name=u'изображение')
-    
-    show = models.BooleanField(default=True, verbose_name=u'показывать на сайте?')
-    position = models.IntegerField(default=0, blank=True, verbose_name=u'параметр для сортировки')
+    alt_name = models.CharField(max_length=512, blank=True, verbose_name=u'альтернативное название')
+    image = models.ImageField(upload_to='uploads/categories', max_length=256, null=True, blank=True, verbose_name=u'изображение')
+
+    @staticmethod
+    def add_and_get(name):
+        name = name.strip()
+        if len(name) == 0:
+            return
+        exists = Category.objects.filter(name=name)
+        if len(exists) > 0:
+            return exists[0]
+        else:
+            cm = Category(name=name)
+            cm.save()
+            return cm
     
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
-        ordering=['position']
+        ordering=['name']
     
     def __unicode__(self):
         return self.name

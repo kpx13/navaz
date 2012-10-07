@@ -56,19 +56,10 @@
 
 					  </figure>
 
-					  <article>
-					<h2>Доставка и оплата</h2> <img src="/static/images/article-1.png"><p>{{ delivery }} <a href="/delivery">далее</a></p>
-					  </article>
-						<article class="art-2">
-					<h2>Ассортимент</h2> <img src="/static/images/article-3.png"> <p> {{ catalog }}  <!--<a href="/catalog">далее</a></p>-->
-					  </article> 
-						<article>
-					<h2>Наши гарантии</h2> <img src="/static/images/article-2.png">
-					<p>{{ warranty }} <a href="/warranty">далее</a></p>
-					  </article>
-					   <article class="art-2">
-					 <h2>Скидки и акции</h2><img src="/static/images/article-4.png"> <p>{{ sale }} <a href="/sale">далее</a></p>
-					  </article>  
+					  <article> <h2>Доставка и оплата</h2> <img src="/static/images/article-1.png">{{ delivery|safe }} </article>
+					   <article class="art-2"> <h2>Ассортимент</h2> <img src="/static/images/article-3.png"> {{ catalog|safe }} </article> 
+					   <article> <h2>Наши гарантии</h2> <img src="/static/images/article-2.png"> {{ warranty|safe }} </article>
+					   <article class="art-2"> <h2>Скидки и акции</h2><img src="/static/images/article-4.png"> {{ sale|safe }} </article>  
      
 		      </div><!-- #content-->
 
@@ -79,7 +70,7 @@
 						<article>
 							<time pubedate>{{ n.date.date }}</time>
 							<h3><u>{{ n.name }}</u></h3> 
-							<p>{{ n.text }}</p>
+							<p>{{ n.text|safe }}</p>
 						</article> 
 					{% endfor %}
 					<div class="images">

@@ -9,7 +9,19 @@ class Colour(models.Model):
     name = models.CharField(max_length=512, verbose_name=u'название')
     art = models.CharField(max_length=512, verbose_name=u'номер')
     code = models.CharField(max_length=10, blank=True, verbose_name=u'grb-код')
-    full_colored = models.BooleanField(default=True, blank=True, verbose_name='полноокрашенный') # имеет смысл для самар
+    
+    @staticmethod
+    def add_and_get(name):
+        name = name.strip()
+        if len(name) == 0:
+            return
+        exists = Colour.objects.filter(name=name)
+        if len(exists) > 0:
+            return exists[0]
+        else:
+            cm = Colour(name=name)
+            cm.save()
+            return cm
     
     class Meta:
         verbose_name = 'цвет'
@@ -21,11 +33,12 @@ class Colour(models.Model):
     
 class Item(models.Model):   # задний бампер, цвет персей, на ВАЗ 2113, полноокрашенный
     category = models.ForeignKey(Category, verbose_name=u'категория')
-    car_model = models.ManyToManyField(CarModel, verbose_name=u'модель авто')
+    car_model = models.ForeignKey(CarModel, verbose_name=u'модель авто')
     colour = models.ForeignKey(Colour, null=True, blank=True, verbose_name=u'цвет')
     name = models.CharField(max_length=512, verbose_name=u'название')
     art = models.CharField(max_length=16, blank=True, verbose_name=u'артикул')
     price = models.FloatField(verbose_name=u'цена')
+    profit = models.FloatField(verbose_name=u'профит')
     prepayment = models.FloatField(verbose_name=u'предоплата', null=True, blank=True)
     image = models.ImageField(upload_to='uploads/items', max_length=256, blank=True, verbose_name=u'изображение')
     description = models.TextField(blank=True, verbose_name=u'описание')

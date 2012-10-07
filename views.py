@@ -3,16 +3,21 @@
 from django.contrib import messages
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from request.forms import RequestForm
 from pages.models import Page
 from news.models import NewsItem
+from catalog.models import CarModel, Item, Colour, Category
 
 def get_common_context(request):
     c = {}
     c['request_url'] = request.path
+    c['car_models'] = CarModel.objects.all()
+    c['colors'] = Colour.objects.all()
+    c['categories'] = Category.objects.all()
     c.update(csrf(request))
     return c
 
@@ -29,6 +34,16 @@ def home_page(request):
 
 def catalog_page(request):
     c = get_common_context(request)
+    items = Item.objects.all()
+    paginator = Paginator(items, 15)
+    page = request.GET.get('page', '1')
+    try:
+        c['items'] = paginator.page(page)
+    except PageNotAnInteger:
+        c['items'] = paginator.page(1)
+    except EmptyPage:
+        c['items'] = paginator.page(paginator.num_pages)
+    
     return render_to_response('catalog.html', c, context_instance=RequestContext(request))
 
 def request_page(request):
@@ -43,15 +58,7 @@ def request_page(request):
             messages.success(request, u'Ваш запрос отправлен.')
             return HttpResponseRedirect('/')
         else:
-            c['request_form'] = form
-            if 'name' in form.errors:
-                messages.error(request, u'Введите свое имя.')
-            if 'email' in form.errors:
-                messages.error(request, u'Введите правильную электронную почту.')
-            if 'language' in form.errors:
-                messages.error(request, u'Выберите язык.')
-            if 'time' in form.errors:
-                messages.error(request, u'Вы должны указать удобное для Вас время.')
+            messages.error(request, u'Возникла ошибка при отправлении сообщения.')
     return render_to_response('request.html', c, context_instance=RequestContext(request))
 
 def other_page(request, page_name):

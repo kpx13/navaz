@@ -64,9 +64,9 @@
 							<script type="text/javascript">share42('/static/js/share42/')</script>
 			</div><!--#contacts-->
 				<div class="phone">
-						<h4>Телефоны:</h4>
+						<h4>Телефон:</h4>
 						<p class="number"><span>+7 (926)</span> 652-36-66 </p>
-						<p class="number"><span>+7 (926)</span> 635-56-66</p>
+						<p class="number">Мы находимся в Москве</p>
 				</div><!--#phone-->
 				<div id="entry">
 				 <p>Задать вопрос,<br /> сделать заказ <br />или заказать <br /> обратный звонок<br /> Вы можете<a href="/request">здесь</a>
@@ -86,17 +86,15 @@
 	 <ul>
             <li><a href="/" {% if 'home' in request_url %} class='list' {% endif %}>Главная</a></li>
             <li><a href="/about" {% if 'about' in request_url %} class='list' {% endif %}>О компании</a></li>
-            <li><a href="/contacts" {% if 'contacts' in request_url %} class='list' {% endif %}>Контакты</a></li>
             <li><a href="/delivery" {% if 'delivery' in request_url %} class='list' {% endif %}>Доставка и оплата</a></li>
             <li><a href="/sale" {% if 'sale' in request_url %} class='list' {% endif %}>Скидки и акции</a></li>
-<!--             <li><a href="/catalog" {% if 'catalog' in request_url %} class='list' {% endif %}>Каталог</a></li> -->
+	    <li><a href="/catalog" {% if 'catalog' in request_url %} class='list' {% endif %}>Каталог</a></li>
 <!--             <li><a href="#">Отзывы</a></li> -->
 <!--             <li><a href="/articles" {% if 'articles' in request_url %} class='list' {% endif %}>Статьи</a></li> -->
-            <li><a href="/warranty" {% if 'warranty' in request_url %} class='list' {% endif %}>Гарантии</a></li>
             <li><a href="/request" {% if 'request' in request_url %} class='list' {% endif %}>Написать нам</a></li>
          </ul>
     </nav>
-<!--    <div id="search">
+    <div id="search">
 			<aside>
 					<img id="logo-out" src="/static/images/logo-out.png">
 				    <div id="basket">
@@ -110,31 +108,28 @@
 					</div>
 				    <input type="text" name="search" id="poisk" placeholder="Что будем искать?">
 					<p><select class="auto" size="1" name="auto-select">
-							<option selected>Выбор марки авто</option>
-							<option value="Vaz-2121">Ваз-2121</option>
-							<option value="Vaz-1313">ВАЗ-1313</option>
-							<option value="Vaz-1414">Ваз-1414</option>
-							<option value="Vaz-1525">ВАЗ-1525</option>
+							<option selected>Все марки авто</option>
+							{% for car in car_models %}
+								<option value="{{ car.id }}">ВАЗ {{ car.name }}</option>
+							{% endfor %}
 					   </select>
 					   <select class="color" size="1" name="color-select">
-							<option selected>Выбор цвета</option>
-							<option value="Белый">Белый</option>
-							<option value="Красный">Красный</option>
-							<option value="Синий">Синий</option>
-							<option value="Желтый">Желтый</option>
+							<option selected>Все цвета</option>
+							{% for c in colors %}
+								<option value="{{ c.id }}">{{ c.name }}</option>
+							{% endfor %}
 				       </select>
 					</p>
 					<p><select class="type" size="1" name="type-select">
-							<option selected>Тип детали</option>
-							<option value="Vaz-2121">Ваз-2121</option>
-							<option value="Vaz-1313">ВАЗ-1313</option>
-							<option value="Vaz-1414">Ваз-1414</option>
-							<option value="Vaz-1525">ВАЗ-1525</option>
+							<option selected>Все детали</option>images/
+							{% for c in categories %}
+								<option value="{{ c.id }}">{{ c.name }}</option>
+							{% endfor %}
 				       </select>
 				       <input type="button" id="search-button" value="Найти" />
 					</p>
 		        </aside>
-    </div>--><!--#search-->
+    </div>
 
 	<div id="middle">
 		  {% block content %}
@@ -149,8 +144,10 @@
 				  <p>Интернет-магазин автозапчастей для автомобилей марки «ВАЗ»</p>
 				  <img src="/static/images/counter.jpg">
 			  </div><!--.foot-->
-			  <div class="foot left"><h6><a href="/delivery">Доставка и оплата</a></h6>
-				  <p>Здесь тоже написать ченить, про доставку или хз про что, может про наличие.</p>
+			  <div class="foot left">
+				<p><a href='#'>Скачать прайс</a></p>
+				<h6><a href="http://webgenesis.ru" targen='blank'>Сайт создан в студии webgenesis.ru</a></h6>
+				  
 			  </div><!--.foot.left-->
 			  <div class="foot">				
 			       <table>
@@ -182,5 +179,7 @@
 			  </div><!--.foot-->
 	     </div><!--#footer-->		  
       </footer>
+      
+      
    </body>
 </html>

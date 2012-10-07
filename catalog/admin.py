@@ -7,7 +7,7 @@ class CarAdmin(admin.ModelAdmin):
     list_display = ('name', )
     
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent')
+    list_display = ('name', )
     
 class ColourAdmin(admin.ModelAdmin):
     list_display = ('name', 'art')

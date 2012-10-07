@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'ckeditor',
     
     'pages',
-    #'catalog',
+    'catalog',
     'news',
     'articles',
     'request'
