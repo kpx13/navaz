@@ -43,7 +43,14 @@
 													  <span class="green"></span>(Много)</td>
 							  </tr>
 						</table>
-						<div id="in_box"><!--<input type="button" id="total" value="В корзину" name="in_basket"/>-->
+						<div id="in_box">
+							<form method='POST'>
+								<input type="submit" id="total" value="В корзину" name="in_basket" />
+								<input type="hidden" name='action' value="add_in_basket" />
+								<input type="hidden" name='item_id' value="{{ item.id }}" />
+								{% csrf_token %}
+							</form>
+							
 							  <table class="price"><tr>
 								  <td>Цена</td>
 								  <td><span class="red"> {{ item.price }} руб.</span></td>

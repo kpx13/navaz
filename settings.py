@@ -137,7 +137,8 @@ INSTALLED_APPS = (
     'catalog',
     'news',
     'articles',
-    'request'
+    'request',
+    'shop'
 )
 
 # A sample logging configuration. The only tangible logging

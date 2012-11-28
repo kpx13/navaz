@@ -69,13 +69,41 @@
 						<p class="number">Мы находимся в Москве</p>
 				</div><!--#phone-->
 				<div id="entry">
-				
-						<p><label for="login">Логин</label>
-							<input type="text" id="login" />
-						<p><label for="pass">Пароль</label><input type="password" id="pass" />
-							<input type="button" id="button-entry" value="вход" /></p>
-						<p><a href="#">Забыли пароль?</a>
-							<a href="#">Регистрация</a></p>
+					{% if not user.is_authenticated %}
+						<form method='POST'>
+								{{ authentication_form.as_p }}
+								<input type="submit" id="button-entry" value="вход" />
+								<input type="hidden" name="action" value="login" />
+								<p>
+								<a href="/forgot_password">Забыли пароль?</a>
+								<a href="/registration">Регистрация</a>
+							</p>
+							
+						<!--
+							<p>
+								<label for="login">Логин</label>
+								<input type="text" id="login" name />
+								
+							</p>
+							<p>
+								<label for="pass">Пароль</label><input type="password" id="pass" />
+								<input type="submit" id="button-entry" value="вход" />
+								<input type="action" value="login" />
+							</p>
+							<p>
+								<a href="/forgot_password">Забыли пароль?</a>
+								<a href="/registration">Регистрация</a>
+							</p>-->
+							{% csrf_token %}
+						</form>
+					{% else %}
+						<form method='POST'>
+							<p>Добро пожаловать, {{ user.username }}.</p>
+							<p><input type="submit" id="button-entry" value="выход" /></p>
+							<input type="hidden" name="action" value="logout" />
+							{% csrf_token %}
+						</form>
+					{% endif %}
 				</div><!--#entry-->
 		</div><!--#header-->
 	</header>
