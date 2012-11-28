@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib import auth
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -11,6 +13,7 @@ from request.forms import RequestForm
 from pages.models import Page
 from news.models import NewsItem
 from catalog.models import CarModel, Item, Color, Category
+from shop.models import Cart
 
 ADMINS = ['annkpx@gmail.com']
 
@@ -23,6 +26,9 @@ def send_mail_to_admin(data):
 def get_common_context(request):
     c = {}
     c['request_url'] = request.path
+    c['user'] = request.user
+    c['authentication_form'] = AuthenticationForm()
+    print c['authentication_form'].as_p()
     c['car_models'] = CarModel.objects.all()
     c['colors'] = Color.objects.all()
     c['categories'] = Category.objects.all()
@@ -31,6 +37,16 @@ def get_common_context(request):
 
 def home_page(request):
     c = get_common_context(request)
+    
+    if request.method == 'POST':
+        if request.POST['action'] == 'login':
+            if login_user(request, c):
+                return HttpResponseRedirect('/')
+        elif request.POST['action'] == 'logout':
+            logout_user(request)
+            return HttpResponseRedirect('/')
+            
+    
     c['request_url'] = 'home'
     c['about'] = Page.get_page_by_slug('home_about')['content']
     c['delivery'] = Page.get_page_by_slug('home_delivery')['content']
@@ -80,9 +96,13 @@ def catalog_page(request):
     return render_to_response('catalog.html', c, context_instance=RequestContext(request))
 
 def item_page(request, item_id):
+    
+    if request.method == 'POST':
+        if request.POST['action'] == 'add_in_basket':
+            Cart.add_to_cart(request.user, request.POST['item_id'])
+    
     c = get_common_context(request)
     c['item'] = Item.get(item_id)
-    print c['item']
     return render_to_response('item.html', c, context_instance=RequestContext(request))
 
 def request_page(request):
@@ -116,3 +136,27 @@ def insert_test_data(request):
     test_data.go_pages()
     test_data.go_news()
     return HttpResponseRedirect('/')
+
+
+def login_user(request, c):
+    form = AuthenticationForm(request.POST)
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            auth.login(request, user)
+            messages.success(request, u'Вы успешно вошли на сайт.')
+            return True
+        else:
+            c['authentication_form'] = form
+            messages.error(request, u'Ваш аккаунт не активирован.')
+            return False
+    else:
+        c['authentication_form'] = form
+        messages.error(request, u'Неверный логин или пароль.')
+        return False
+
+
+def logout_user(request):
+    auth.logout(request)

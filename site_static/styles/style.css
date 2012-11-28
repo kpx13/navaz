@@ -29,13 +29,13 @@ h4{font-family: Verdana, Geneva, sans-serif;font-size: 11px;margin-bottom: -2px;
 p.number{font-family: Impact;font-size: 18px;padding-top: 10px;}
 p.number span {color: #d1d1d1;}
 
-#entry{display: inline-block;position: relative;font-family:Verdana, Geneva, sans-serif;font-size: 11px;color:#c2c2c2;bottom: 12px;border-right: 1px solid #4d4d4d;padding-top: 10px;padding-right: 6px;padding-left: 6px;}
-#entry p:first-child{text-indent: 4px;}
-#entry p{margin-bottom: 4px;margin-right: 10px;}
-input#pass, input#login{height: 16px;width: 83px;padding-right: 15px;border-radius: 2px;margin-left: 9px;margin-right: 2px;-webkit-box-shadow: inset 1px 1px 4px rgba(50, 50, 50, 0.75);-moz-box-shadow:   inset 1px 1px 4px rgba(50, 50, 50, 0.75);box-shadow:  inset 1px 1px 2px rgba(50, 50, 50, 0.75);}
-input#pass{background-image:url(../images/pass.png);	background-repeat:no-repeat; background-position:95% 60%;}
-input#login{background-image:url(../images/login.png);background-repeat:no-repeat;background-position:97% 60%;}
-input#button-entry{width: 54px;height: 18px;background: linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -o-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -moz-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -webkit-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -ms-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);border-radius: 2px;box-shadow: inset -2px -2px 3px #6c9db6;color: #000;font-family:Tahoma, Geneva, sans-serif;font-size: 11px;margin-left: 4px;}
+#entry{display: inline-block;position: relative;font-family:Verdana, Geneva, sans-serif;font-size: 11px;color:#c2c2c2;bottom: 12px;padding-top: 10px;padding-right: 6px;padding-left: 6px; text-align: right; min-width: 200px; min-height: 100px}
+
+#entry p{margin-bottom: 4px;}
+input#id_password, input#id_username{height: 16px;width: 83px;padding-right: 15px;border-radius: 2px;margin-left: 9px;margin-right: 2px;-webkit-box-shadow: inset 1px 1px 4px rgba(50, 50, 50, 0.75);-moz-box-shadow:   inset 1px 1px 4px rgba(50, 50, 50, 0.75);box-shadow:  inset 1px 1px 2px rgba(50, 50, 50, 0.75);}
+input#id_password{background-image:url(../images/pass.png);	background-repeat:no-repeat; background-position:95% 60%;}
+input#id_username{background-image:url(../images/login.png);background-repeat:no-repeat;background-position:97% 60%;}
+input#button-entry{width: 100px;height: 18px;background: linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -o-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -moz-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -webkit-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -ms-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);border-radius: 2px;box-shadow: inset -2px -2px 3px #6c9db6;color: #000;font-family:Tahoma, Geneva, sans-serif;font-size: 11px;margin-left: 4px;}
 #entry p:last-child{margin-top:0px;margin-left: 40px;margin-bottom: -1px;}
 input#remember{vertical-align: middle;border: 1px;}
 label[for="remember"]{text-decoration: underline;color:#959595;}
