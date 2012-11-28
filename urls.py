@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     url(r'^$' , views.home_page),
     url(r'^request$' , views.request_page),
     url(r'^catalog$' , views.catalog_page),
+    url(r'^cart$' , views.cart_page),
+    url(r'^order$' , views.order_page),
     url(r'^item/(?P<item_id>\w+)$' , views.item_page),
     url(r'^(?P<page_name>\w+)$' , views.other_page),
     

@@ -12,9 +12,6 @@ class Cart(models.Model):
     count = models.IntegerField(default=1, verbose_name=u'Количество')
     date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'Дата добавления')
     
-    @staticmethod
-    def add_to_cart(user, item_id, count=1):
-        Cart(user=user, item=Item.get(item_id), count=count).save()
     
     class Meta:
         verbose_name = u'товар в корзине'
@@ -23,6 +20,24 @@ class Cart(models.Model):
         
     def __unicode__(self):
         return self.item.name
+    
+    @staticmethod
+    def add_to_cart(user, item_id, count=1):
+        Cart(user=user, item=Item.get(item_id), count=count).save()
+    
+    @staticmethod
+    def get_content(user):
+        cart = list(Cart.objects.filter(user=user))
+        return cart
+    
+    @staticmethod
+    def get_goods_count_and_sum(user):
+        cart = Cart.get_content(user)
+        return (len(cart), sum([x.count * x.item.price for x in cart]))
+    
+    @staticmethod
+    def in_basket(user, item):
+        pass
     
 
 class Order(models.Model):
@@ -36,3 +51,8 @@ class Order(models.Model):
         
     def __unicode__(self):
         return self.date
+    
+    
+    
+    
+    

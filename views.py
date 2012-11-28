@@ -28,10 +28,11 @@ def get_common_context(request):
     c['request_url'] = request.path
     c['user'] = request.user
     c['authentication_form'] = AuthenticationForm()
-    print c['authentication_form'].as_p()
     c['car_models'] = CarModel.objects.all()
     c['colors'] = Color.objects.all()
     c['categories'] = Category.objects.all()
+    if request.user.is_authenticated():
+        c['cart_count'], c['cart_sum'] = Cart.get_goods_count_and_sum(c['user'])
     c.update(csrf(request))
     return c
 
@@ -95,8 +96,15 @@ def catalog_page(request):
         c['need_pagination'] = True
     return render_to_response('catalog.html', c, context_instance=RequestContext(request))
 
+def cart_page(request):
+    c = get_common_context(request)
+    return render_to_response('cart.html', c, context_instance=RequestContext(request))
+
+def order_page(request):
+    c = get_common_context(request)
+    return render_to_response('order.html', c, context_instance=RequestContext(request))
+
 def item_page(request, item_id):
-    
     if request.method == 'POST':
         if request.POST['action'] == 'add_in_basket':
             Cart.add_to_cart(request.user, request.POST['item_id'])

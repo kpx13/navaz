@@ -125,14 +125,15 @@
 				    <div id="basket">
 						  <img src="/static/images/basket.jpg">
 						  <section>
-							<p><span class="blue">Приносим свои извинения!</span></p>
-							<p>Интернет Магазин находтся<br /> в разработке. 
-							Вы можете оформить онлайн заказ <br /> <a href='/request'>здесь</a>.
-							</p>
-<!-- 							  <p>В вашей корзине:<br> <b>3 товара</b></p> -->
-<!-- 							  <p>На сумму: <span class="red"> 19600 руб.</span></p> -->
-<!-- 							  <p>Предоплата:<span class="blue"> 3600</span></p> -->
-<!-- 							  <a href="/cart">Перейти в корзину</a> -->
+                            {% if cart_count > 0 %}
+                                <p>В вашей корзине:<br> <b>{{ cart_count }} товара</b></p>
+                                <p>На сумму: <span class="red"> {{ cart_sum }}</span> руб.</p>
+<!--                                 <p>Предоплата:<span class="blue"> 3600</span></p> -->
+                                <a href="/cart">Перейти в корзину</a>
+                            {% else %}
+                                <p><span class="blue"></span></p>
+                                <p>Ваша корзина пуста.<br /><br /><a href="/catalog">Перейти в каталог</a></p>
+                            {% endif %}
 						  </section>
 					</div>
 					
