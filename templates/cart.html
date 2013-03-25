@@ -14,73 +14,54 @@
         <a href="index.html">Главная</a>
         &#8722; Корзина
     </p>
-    <table class="catalog" rules="all" border="1">
-        <tr>
-            <td>Фото</td>
-            <td>Артикул</td>
-            <td>Наименование</td>
-            <td>Марка авто</td>
-            <td>Производитель</td>
-            <td>Цвет</td>
-            <td>Количество</td>
-            <td><span class="red">Цена</span></td>
-            <td><span class="blue">Предоплата</span></td>
-            <td>Удалить</td>
-        </tr>
-        <tr>
-            <td><img src="/static/images/photo.jpg"></td>
-            <td>DF24589</td>
-            <td class="left">
-                <p>
-                    <h3>
-                        <a href="Index_4.html">Карбюратор ВАЗ-2107-20 V=1500-1600 с вакуум-кор. ДААЗ</a>
-                    </h3> 
-                    узел системы питания ДВС Отто, предназначенный для создания горючей смеси оптимального состава путем смешивания&#8230;
-                </p><a href="#">&#62;&#62;</a>
-            </td>
-            <td>ВАЗ 21083</td>
-            <td><a href="#">Jurid/Bendix</a></td>
-            <td><div class="box"></div></td>
-            <td><input type="text" value="1" id="number"> шт.</td>
-            <td><b>3875</b></td>
-            <td>1200</td>
-            <td><a href="#"><img src="/static/images/x.png"></a></td>
-        </tr>
-        <tr>
-            <td><img src="/static/images/photo.jpg"></td>
-            <td>DF24589</td>
-            <td class="left">
-                <p>
-                    <h3><a href="#">Карбюратор ВАЗ-2107-20 V=1500-1600 с вакуум-кор. ДААЗ</a></h3> 
-                    узел системы питания ДВС Отто, предназначенный для создания горючей смеси оптимального состава путем смешивания&#8230;
-                </p>
-                <a href="#">&#62;&#62;</a>
-            </td>
-            <td>ВАЗ 21083</td>
-            <td><a href="#">Jurid/Bendix</a></td>
-            <td><div class="box"></div></td>
-            <td><input type="text" value="1" id="number"> шт.</td>
-            <td><b>3875</b></td>
-            <td>1200</td>
-            <td><a href="#"><img src="/static/images/x.png"></a></td>
-        </tr>
-        <tr>
-            <td><img src="/static/images/photo.jpg"></td>
-            <td>DF24589</td>
-            <td class="left"><p><h3><a href="#">Карбюратор ВАЗ-2107-20 V=1500-1600 с вакуум-кор. ДААЗ</a></h3> узел системы питания ДВС Отто, предназначенный для создания горючей смеси оптимального состава путем смешивания&#8230;</p><a href="#">&#62;&#62;</a></td>
-            <td>ВАЗ 21083</td>
-            <td><a href="#">Jurid/Bendix</a></td>
-            <td><div class="box"></div></td>
-            <td><input type="text" value="1" id="number"> шт.</td>
-            <td><b>3875</b></td>
-            <td>1200</td>
-            <td><a href="#"><img src="/static/images/x.png"></a></td>
-        </tr>
-    </table>
+    
+    {% if items %}
+           <table class="catalog" rules="all" border="1">
+              <tr>
+                  <td>Фото</td>
+                  <td>Артикул</td>
+                  <td>Наименование</td>
+                  <td>На автомобиль</td>
+                  <td>Цвет</td>
+                  <td>Количество</td>
+                  <td><span class="red">Цена</span></td>
+                  <td>Удалить</td>
+              </tr>
+              
+              {% for i in items %}
+              
+              <tr>
+                  <td><img {% if i.item.image %} src="/media/{{ i.item.image }}" style='max-height: 46px; max-width: 46px' {% else %} src="/static/images/photo.jpg" {% endif %}
+                  alt='{{ i.item.name }}' ></td>
+                  <td>{{ i.item.art }}</td> 
+                  <td class="left">
+                    <p><h3><a href="/item/{{ i.item.id }}">{{ i.item.name }}</a></h3>
+                    </p>
+                  </td>
+                  <td>{{ i.item.car_model.full_name }}</td>
+                  <td>{% if i.item.color %} {{ i.item.color.name }} {% else %} --- {% endif %}</td>
+                  <td>{{ i.count }} шт.</td>
+                  <td><b>{{ i.item.price }} руб.</b></td>
+                  <td>
+                            <form method='POST'>
+                                <input type="submit" class='from_basket' value="" name="from_basket" />
+                                <input type="hidden" name='action' value="del_from_basket" />
+                                <input type="hidden" name='item_id' value="{{ i.item.id }}" />
+                                {% csrf_token %}
+                            </form>               
+                  </td>
+              </tr>
+              
+              {% endfor %}
+              </table><!--."catalog-->
+        {% else %}
+            <br />
+            <h2>Ваша корзина пуста.</h2>
+        {% endif %}
     
     <div class="total">
-        <p>Итого у нас выбрано:<b>3 товара</b> <span class="red"> 19600</span><span class="blue"> 3600</span></p>
-        <input type="button" id="count" value="Пересчитать" name="count"/>
+        <p>Итого:<b>{{ cart_count }}</b>  ед. товара на <span class="red"> {{ cart_sum }}</span> руб.</p>
+        <br />
     </div>
     <div class="check-box">
         <h5>Выбор типа оплаты</h5>

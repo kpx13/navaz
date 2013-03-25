@@ -32,7 +32,7 @@ p.number span {color: #d1d1d1;}
 #entry{display: inline-block;position: relative;font-family:Verdana, Geneva, sans-serif;font-size: 11px;color:#c2c2c2;bottom: 12px;padding-top: 10px;padding-right: 6px;padding-left: 6px; text-align: right; min-width: 200px; min-height: 100px}
 
 #entry p{margin-bottom: 4px;}
-input#id_password, input#id_username{height: 16px;width: 83px;padding-right: 15px;border-radius: 2px;margin-left: 9px;margin-right: 2px;-webkit-box-shadow: inset 1px 1px 4px rgba(50, 50, 50, 0.75);-moz-box-shadow:   inset 1px 1px 4px rgba(50, 50, 50, 0.75);box-shadow:  inset 1px 1px 2px rgba(50, 50, 50, 0.75);}
+.authentication_form input#id_password, .authentication_form input#id_username{height: 16px;width: 83px;padding-right: 15px;border-radius: 2px;margin-left: 9px;margin-right: 2px;-webkit-box-shadow: inset 1px 1px 4px rgba(50, 50, 50, 0.75);-moz-box-shadow:   inset 1px 1px 4px rgba(50, 50, 50, 0.75);box-shadow:  inset 1px 1px 2px rgba(50, 50, 50, 0.75);}
 input#id_password{background-image:url(../images/pass.png);	background-repeat:no-repeat; background-position:95% 60%;}
 input#id_username{background-image:url(../images/login.png);background-repeat:no-repeat;background-position:97% 60%;}
 input#button-entry{width: 100px;height: 18px;background: linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -o-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -moz-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -webkit-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);background: -ms-linear-gradient(bottom, rgb(149,213,242) 29%, rgb(186,237,240) 100%);border-radius: 2px;box-shadow: inset -2px -2px 3px #6c9db6;color: #000;font-family:Tahoma, Geneva, sans-serif;font-size: 11px;margin-left: 4px;}
@@ -147,6 +147,7 @@ h6{margin-bottom: 20px;}
 #middle2 {height: 1%;position: relative;padding: 0 0 20px;}
 #middle2:after {content: '.';	display: block;clear: both;visibility: hidden;height: 0;}
 #wrapper {width: 1000px; min-height: 400px; margin: 0 auto;position:relative;padding: 28px 0 0 7px;font-family:Tahoma, Geneva, sans-serif;font-size:11px;line-height: 14px;}
+.message-wrapper {width: 1000px; margin: 0 auto;position:relative;padding: 7px 0 0 0px;font-family:Tahoma, Geneva, sans-serif;font-size:11px;}
 #wrapper a{color:#0669b2;}
 #wrapper h2{float:left; margin-right: 15px;}
 #wrapper p{color:#000;}
@@ -196,6 +197,8 @@ table.catalog td.color{padding: 0 15px 0 25px;}
 .total span.blue{border-color:#6196cf;}	
 .total span.red{	border-color:#ed1c24;}
 .total input#count{width: 131px;height: 30px;float:right;margin: 15px 5px;border: 1px solid #c1de97;border-radius: 1px;background: url(../images/arrows.png) no-repeat 92% center, url(../images/line_btn_count.jpg) repeat-x; color: #3f870e;font-family:Tahoma, Geneva, sans-serif;font-size: 12px/30px;position:relative;font-weight: bold;}		
+.in_basket{ padding: 10px;background: url(../images/car.jpg) no-repeat; color: #3f870e;font-family:Tahoma, Geneva, sans-serif;font-size: 12px/30px;position:relative;font-weight: bold;cursor: pointer}     
+.from_basket{ padding: 10px;background: url(../images/x.png) no-repeat; color: #3f870e;font-family:Tahoma, Geneva, sans-serif;font-size: 12px/30px;position:relative;font-weight: bold;cursor: pointer}  
 #in_box {margin-top: 20px;}
 #in_box table.price{font-size: 12px;}
 #in_box table.price tr td:first-child{text-align: right;font-size: 12px;line-height: 24px;color:#474747; font-family: Tahoma;}

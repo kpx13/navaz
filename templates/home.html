@@ -10,13 +10,6 @@
 {% block content %}
 			<div id="container">
 				<div id="content">
-					{% if messages %}
-						{% for message in messages %}
-							<div class="alert alert-{{ message.tags }}">
-								{{ message }}
-							</div>
-						{% endfor %}
-					{% endif %}
 					<h2>О компании</h2> 
 					{{ about|safe }}
 					  <figure><h5>Добро пожаловать в онлайн магазин запчастей для автомобилей ВАЗ!</h5>

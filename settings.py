@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'grappelli',
     'filebrowser',
+    'registration',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -173,6 +174,12 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = 'noreply@navaz.ru'
 EMAIL_HOST_PASSWORD = 'noreplynoreply'
 EMAIL_USE_TLS = False
+
+ACCOUNT_ACTIVATION_DAYS = 2
+
+AUTH_USER_EMAIL_UNIQUE = True
+DEFAULT_FROM_EMAIL = 'noreply@navaz.ru'
+GRAPPELLI_ADMIN_TITLE = 'naVAZ.ru'
 
 try:
     from dev import *

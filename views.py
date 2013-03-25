@@ -22,9 +22,16 @@ def send_mail_to_admin(data):
     text= u'Имя: ' + data['name'] + u"\n" + u'email: ' + data['email'] + '\n' + u'Телефон: ' + data['phone'] + '\n' + u'Текст: ' + data['comment'] + '\n'
     send_mail('Новое сообщение с сайта', text , 'noreply@navaz.ru', ADMINS, fail_silently=False)
 
+def context():
+    c = {}
+    c['authentication_form'] = AuthenticationForm()
+    c['car_models'] = CarModel.objects.all()
+    c['colors'] = Color.objects.all()
+    c['categories'] = Category.objects.all()
+    return c
 
 def get_common_context(request):
-    c = {}
+    c = context()
     c['request_url'] = request.path
     c['user'] = request.user
     c['authentication_form'] = AuthenticationForm()
@@ -36,17 +43,25 @@ def get_common_context(request):
     c.update(csrf(request))
     return c
 
+def view(view_function):
+    """ Декоратор """
+    
+    def wrapped_function(request, *args, **kwargs):
+        if request.method == 'POST':
+            if request.POST['action'] == 'login':
+                if login_user(request, get_common_context(request)):
+                    return HttpResponseRedirect('/')
+            elif request.POST['action'] == 'logout':
+                logout_user(request)
+                return HttpResponseRedirect('/')
+        return view_function(request, *args, **kwargs)
+    
+    return wrapped_function
+
+
+@view
 def home_page(request):
     c = get_common_context(request)
-    
-    if request.method == 'POST':
-        if request.POST['action'] == 'login':
-            if login_user(request, c):
-                return HttpResponseRedirect('/')
-        elif request.POST['action'] == 'logout':
-            logout_user(request)
-            return HttpResponseRedirect('/')
-            
     
     c['request_url'] = 'home'
     c['about'] = Page.get_page_by_slug('home_about')['content']
@@ -57,8 +72,19 @@ def home_page(request):
     c['news'] = NewsItem.objects.all()
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
+@view
 def catalog_page(request):
     c = get_common_context(request)
+    
+    if request.method == 'POST':
+        if request.POST['action'] == 'add_in_basket':
+            try:
+                Cart.add_to_cart(request.user, request.POST['item_id'])
+                messages.success(request, u'Товар был добавлен в корзину.')
+                return HttpResponseRedirect(request.get_full_path())
+            except:
+                messages.error(request, u"Перед добавлением товара в корзину необходимо <a href='/accounts/register/'>зарегистрироваться</a>.")
+    
     car_model = int(request.GET.get('car_model', '0'))
     category = int(request.GET.get('category', '0'))
     color = int(request.GET.get('color', '0'))
@@ -96,23 +122,42 @@ def catalog_page(request):
         c['need_pagination'] = True
     return render_to_response('catalog.html', c, context_instance=RequestContext(request))
 
+@view
 def cart_page(request):
     c = get_common_context(request)
+    if request.method == 'POST':
+        if request.POST['action'] == 'del_from_basket':
+            Cart.del_from_cart(request.user, request.POST['item_id'])
+            messages.success(request, u'Товар был удален из корзины.')
+            return HttpResponseRedirect(request.get_full_path())
+        elif request.POST['action'] == 'change_count':
+            Cart.change_count(request.user, request.POST['item_id'], request.POST['item_count'])
+            messages.success(request, u'Количество единиц товара было изменено.')
+            return HttpResponseRedirect(request.get_full_path())
+    
+    
+    c['items'] = Cart.get_content(request.user)
     return render_to_response('cart.html', c, context_instance=RequestContext(request))
 
+@view
 def order_page(request):
     c = get_common_context(request)
     return render_to_response('order.html', c, context_instance=RequestContext(request))
 
+@view
 def item_page(request, item_id):
     if request.method == 'POST':
         if request.POST['action'] == 'add_in_basket':
-            Cart.add_to_cart(request.user, request.POST['item_id'])
-    
+            try:
+                Cart.add_to_cart(request.user, request.POST['item_id'])
+                messages.success(request, u'Товар был добавлен в корзину.')
+            except:
+                messages.error(request, u"Перед добавлением товара в корзину необходимо <a href='/accounts/register/'>зарегистрироваться</a>.")
     c = get_common_context(request)
     c['item'] = Item.get(item_id)
     return render_to_response('item.html', c, context_instance=RequestContext(request))
 
+@view
 def request_page(request):
     c = get_common_context(request)
     if request.method == 'GET':
@@ -129,6 +174,7 @@ def request_page(request):
             c['request_form'] = form
     return render_to_response('request.html', c, context_instance=RequestContext(request))
 
+@view
 def other_page(request, page_name):
     c = get_common_context(request)
     try:
@@ -137,14 +183,6 @@ def other_page(request, page_name):
     except:
         return HttpResponseNotFound('page not found')
         #return render_to_response('base.html', c, context_instance=RequestContext(request))
-
-
-def insert_test_data(request):
-    import test_data
-    test_data.go_pages()
-    test_data.go_news()
-    return HttpResponseRedirect('/')
-
 
 def login_user(request, c):
     form = AuthenticationForm(request.POST)

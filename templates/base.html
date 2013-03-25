@@ -70,32 +70,20 @@
 				</div><!--#phone-->
 				<div id="entry">
 					{% if not user.is_authenticated %}
-						<form method='POST'>
+                        
+						<form method='POST' class='authentication_form' action='/'>
+                            {% if authentication_form %}
 								{{ authentication_form.as_p }}
 								<input type="submit" id="button-entry" value="вход" />
 								<input type="hidden" name="action" value="login" />
 								<p>
-								<a href="/forgot_password">Забыли пароль?</a>
-								<a href="/registration">Регистрация</a>
+                            {% endif %}
+								<a href="/accounts/password/reset/">Забыли пароль?</a>
+								<a href="/accounts/register/">Регистрация</a>
 							</p>
-							
-						<!--
-							<p>
-								<label for="login">Логин</label>
-								<input type="text" id="login" name />
-								
-							</p>
-							<p>
-								<label for="pass">Пароль</label><input type="password" id="pass" />
-								<input type="submit" id="button-entry" value="вход" />
-								<input type="action" value="login" />
-							</p>
-							<p>
-								<a href="/forgot_password">Забыли пароль?</a>
-								<a href="/registration">Регистрация</a>
-							</p>-->
 							{% csrf_token %}
 						</form>
+						
 					{% else %}
 						<form method='POST'>
 							<p>Добро пожаловать, {{ user.username }}.</p>
@@ -126,9 +114,8 @@
 						  <img src="/static/images/basket.jpg">
 						  <section>
                             {% if cart_count > 0 %}
-                                <p>В вашей корзине:<br> <b>{{ cart_count }} товара</b></p>
+                                <p>В вашей корзине:<br> <b>{{ cart_count }} ед. товара</b></p>
                                 <p>На сумму: <span class="red"> {{ cart_sum }}</span> руб.</p>
-<!--                                 <p>Предоплата:<span class="blue"> 3600</span></p> -->
                                 <a href="/cart">Перейти в корзину</a>
                             {% else %}
                                 <p><span class="blue"></span></p>
@@ -165,6 +152,16 @@
     </div>
 
 	<div id="middle">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class='message-wrapper'>
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message|safe }}
+                            </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
 		  {% block content %}
 		  
 		  {% endblock %}

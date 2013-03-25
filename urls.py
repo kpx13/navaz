@@ -18,8 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
     url(r'^ckeditor/', include('ckeditor.urls')),
-
-    url(r'^insert_test_data$', views.insert_test_data),
+    url(r'^accounts/', include('registration.urls'), {'extra_context': views.context()}),
 
     url(r'^$' , views.home_page),
     url(r'^request$' , views.request_page),

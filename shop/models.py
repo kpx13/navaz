@@ -23,7 +23,33 @@ class Cart(models.Model):
     
     @staticmethod
     def add_to_cart(user, item_id, count=1):
-        Cart(user=user, item=Item.get(item_id), count=count).save()
+        alr = Cart.objects.filter(item=item_id)
+        if len(alr) == 0:
+            Cart(user=user, item=Item.get(item_id), count=count).save()
+        else:
+            alr[0].count = alr[0].count + count
+            alr[0].save()
+    
+    @staticmethod
+    def change_count(user, item_id, count):
+        alr = Cart.objects.filter(item=item_id)
+        if count < 0:
+            return
+        if len(alr) == 0:
+            Cart(user=user, item=Item.get(item_id), count=count).save()
+            if count == 0:
+                Cart.objects.filter(item=item_id).delete()
+        else:
+            alr[0].count = count
+            alr[0].save()
+            
+    @staticmethod
+    def del_from_cart(user, item_id):
+        alr = Cart.objects.filter(item=item_id)
+        if len(alr) == 0:
+            return
+        else:
+            Cart.objects.filter(item=item_id).delete()
     
     @staticmethod
     def get_content(user):
@@ -34,10 +60,6 @@ class Cart(models.Model):
     def get_goods_count_and_sum(user):
         cart = Cart.get_content(user)
         return (len(cart), sum([x.count * x.item.price for x in cart]))
-    
-    @staticmethod
-    def in_basket(user, item):
-        pass
     
 
 class Order(models.Model):

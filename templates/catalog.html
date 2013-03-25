@@ -36,14 +36,13 @@
 			  {% for i in items.object_list %}
 			  
 			  <tr>
-				  <td><img src="/static/images/photo.jpg" alt='{{ i.name }}' ></td>
+				  <td><img  {% if i.image %} src="/media/{{ i.image }}" style='max-height: 46px; max-width: 46px' {% else %} src="/static/images/photo.jpg" {% endif %}  alt='{{ i.name }}' ></td>
 				  <td>{{ i.art }}</td> 
 				  <td class="left">
-					<p><h3><a href="/item/{{ i.id }}">{{ i.name }}</a></h3> <!--узел системы питания ДВС Отто, предназначенный для создания горючей смеси оптимального состава путем смешивания&#8230;</p><a href="Index_4.html">&#62;&#62;</a>-->
+					<p><h3><a href="/item/{{ i.id }}">{{ i.name }}</a></h3>
 					</p>
 				  </td>
 				  <td>{{ i.car_model.full_name }}</td>
-<!-- 				  <td><a href="#">Jurid/Bendix</a></td> -->
 				  <td>{% if i.color %} {{ i.color.name }} {% else %} --- {% endif %}</td>
 				  <td class="color">
 					<span class="green"></span>
@@ -54,7 +53,14 @@
 				</td>
 				  <td><b>{{ i.price }} руб.</b></td>
 <!-- 				  <td>1200</td> -->
-				  <td><a href="#"><img src="/static/images/car.jpg"></a></td>
+				  <td>
+                            <form method='POST'>
+                                <input type="submit" class='in_basket' value="" name="in_basket" />
+                                <input type="hidden" name='action' value="add_in_basket" />
+                                <input type="hidden" name='item_id' value="{{ i.id }}" />
+                                {% csrf_token %}
+                            </form>				  
+				  </td>
 			  </tr>
 			  
 			  {% endfor %}

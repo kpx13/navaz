@@ -1,0 +1,3 @@
+Для активации вашего аккаунта необходимо перейти по ссылке:
+http://navaz.ru/accounts/activate/{{ activation_key }}/
+Спасибо!

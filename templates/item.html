@@ -14,7 +14,7 @@
 				  &#8722; <a href="/catalog?car_model={{ item.car_model.id }}&category={{ item.category.id }}">{{ item.category.name }}</a> 
 				  &#8722; {{ item.name }}</p>
 				  
-				  <div class="item first"><img src="/static/images/carburator.jpg" alt="{{ item.name }} на {{ item.car_model.full_name }}"></div>
+				  <div class="item first"><img {% if item.image %} src="/media/{{ item.image }}" style='max-height: 214px; max-width: 217px' {% else %} src="/static/images/carburator.jpg" {% endif %} alt="{{ item.name }} на {{ item.car_model.full_name }}"></div>
 				  <div class="item second"><h4>{{ item.name }} на {{ item.car_model.full_name }}</h4><p>{{ item.description }} </p></div>
 				  <div class="item third">
 						  <table id="description" rules="all"  border="1">
