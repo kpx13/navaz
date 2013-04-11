@@ -4,10 +4,10 @@ import os.path
 import sys
 import django.conf
 
-DEBUG = True
-#DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-#TEMPLATE_DEBUG = False
+#DEBUG = True
+DEBUG = False
+#TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = False
 
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
