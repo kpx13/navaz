@@ -2,6 +2,7 @@
 
 import os.path
 import sys
+import django.conf
 
 DEBUG = True
 #DEBUG = False
@@ -59,6 +60,7 @@ MEDIA_ROOT = MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/media/'
+ADMIN_TOOLS_THEMING_CSS = 'styles/admin.css'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -72,8 +74,10 @@ STATIC_ROOT = STATICFILES_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 
 STATIC_URL = STATICFILES_URL = '/static/'
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
+#ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -100,6 +104,16 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    'django.contrib.auth.context_processors.auth',
+    #"account.context_processors.account",
+    #"context_processors.page_seo_tags",
+    'django.contrib.messages.context_processors.messages',
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -119,12 +133,22 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',    
+    
+    'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     'grappelli',
     'filebrowser',
     'registration',

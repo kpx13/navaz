@@ -1,0 +1,46 @@
+#header {
+    background: white;
+}
+
+#user-tools{
+/*     display: none; */
+}
+
+.dashboard-title{
+    display: none;
+}
+
+#header #branding h1 {
+    margin: 0;
+    padding: 5px 0px;
+    text-indent: -9999px;
+    background: white url(/static/images/back1.jpg);
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    
+}
+
+#header
+{
+    color: #333;
+}
+
+#header #branding a
+{
+    color: black !important;
+    font-size: large !important;
+}
+
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+}
+
+div.breadcrumbs a {
+    display: inline;
+}
+ 
