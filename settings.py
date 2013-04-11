@@ -152,7 +152,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'grappelli',
     'filebrowser',
-    'sorl.thumbnail',
+    
     'registration',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -163,7 +163,8 @@ INSTALLED_APPS = (
     'news',
     'articles',
     'request',
-    'shop'
+    'shop',
+    'sorl.thumbnail',
 )
 
 # A sample logging configuration. The only tangible logging
