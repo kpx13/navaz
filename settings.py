@@ -149,15 +149,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'ckeditor',
     'grappelli',
     'filebrowser',
+    'sorl.thumbnail',
     'registration',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'ckeditor',
-    
     'pages',
     'catalog',
     'news',
@@ -186,6 +186,29 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+    }
+}
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 7864320
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar':
+           [
+                ['Source', '-', 'Templates'],
+                ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+                ['Undo', 'Redo', ],
+                ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],
+                ['RemoveFormat', 'Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+                ['Styles','Format','FontSize', 'TextColor','BGColor'],
+                ['Link','Unlink',],
+                ['Maximize', 'ShowBlocks'],
+            ],
+        'width': 1056,
+        'height': 200,
+        'toolbarCanCollapse': True,
+        'resize_enabled': True
     }
 }
 

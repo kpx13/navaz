@@ -3,3 +3,4 @@ django-filebrowser==3.5.1
 pil==1.1.7
 django-registration==0.8
 django-admin-tools
+sorl-thumbnail

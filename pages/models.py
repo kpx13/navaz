@@ -12,9 +12,7 @@ class Page(models.Model):
         try:
             page = cls.objects.get(slug=page_name)
             return {'title': page.title,
-                    'content': page.content,
-                    'header_content': page.header_content
-                    }
+                    'content': page.content}
         except:
             return None
         
