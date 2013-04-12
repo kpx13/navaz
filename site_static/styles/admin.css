@@ -32,15 +32,13 @@
     font-size: large !important;
 }
 
-div.breadcrumbs {
-    display: block;
-    padding: 10px 15px;
-    border: 0;
-    background-position: 0 -8px;
-    border-bottom: 1px solid #ededed;
+.grp-horizontal-list
+{
 }
 
-div.breadcrumbs a {
-    display: inline;
+.grp-horizontal-list ul li
+{
+    list-style: none;
+    
+    
 }
- 

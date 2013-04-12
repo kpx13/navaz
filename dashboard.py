@@ -33,6 +33,7 @@ class CustomIndexDashboard(Dashboard):
             collapsible=False,
             children=[
                 [u'Менеджер файлов', '/admin/filebrowser/browse/'],
+                [u'Настройки сайта', '/settings/MyApp'],
                 [_('Return to site'), '/'],
                 [_('Change password'),
                  reverse('%s:password_change' % site_name)],
@@ -45,7 +46,6 @@ class CustomIndexDashboard(Dashboard):
             _('Applications'),
             exclude=('django.contrib.*',),
         ))
-
 
         # append a recent actions module
         self.children.append(modules.RecentActions(_('Recent Actions'), 5))

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from livesettings import config_value
 
 from request.forms import RequestForm
 from pages.models import Page

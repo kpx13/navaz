@@ -150,9 +150,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'users',
     'ckeditor',
-    'grappelli',
+
     'filebrowser',
-    
+    'livesettings',
     'registration',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -212,6 +212,11 @@ CKEDITOR_CONFIGS = {
         'resize_enabled': True
     }
 }
+
+LIVESETTINGS_OPTIONS = {   1: {   'DB': True,
+           'SETTINGS': {   u'MyApp': {   u'DECIMAL_TEST': u'34.0923443',
+                                         u'MEASUREMENT_SYSTEM': u'["metric"]',
+                                         u'STRING_TEST': u'Orange'}}}}
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
