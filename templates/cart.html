@@ -82,7 +82,7 @@
         <div class="radio-box">
             <h5>Выбор варианта доставки</h5>
             <p>
-                <input type="radio" name="deliver" value='1'><label for="myself">Самовывоз со склада:</label>
+                <input type="radio" name="deliver" value='1' checked=checked><label for="myself">Самовывоз со склада:</label>
             </p>
             <ul>
                 <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
@@ -105,8 +105,12 @@
         <input type="hidden" name='action' value="to_order" />
         {% csrf_token %}
     </form>
-    {% else %}
-        <h4>Для оформления заказа Вам необходимо <a href='/accounts/register/'>зарегистрироваться</a>.</h4>
+    {% endif %}
+    
+    {% if not user.is_authenticated %}
+        <div>
+            <h2>Для оформления заказа Вам необходимо <a href='/accounts/register/'>зарегистрироваться</a>.</h2>
+        </div>
     {% endif %}
 </div>
 {% endblock %}
