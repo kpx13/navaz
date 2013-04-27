@@ -84,12 +84,9 @@ def catalog_page(request):
     
     if request.method == 'POST':
         if request.POST['action'] == 'add_in_basket':
-            try:
-                Cart.add_to_cart(request.user, request.POST['item_id'])
-                messages.success(request, u'Товар был добавлен в корзину.')
-                return HttpResponseRedirect(request.get_full_path())
-            except:
-                messages.error(request, u"Перед добавлением товара в корзину необходимо <a href='/accounts/register/'>зарегистрироваться</a>.")
+            c['cart_working'].add_to_cart(request.user, request.POST['item_id'])
+            messages.success(request, u'Товар был добавлен в корзину.')
+            return HttpResponseRedirect(request.get_full_path())
     
     car_model = int(request.GET.get('car_model', '0'))
     category = int(request.GET.get('category', '0'))
