@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load thumbnail %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block extended_head %}
@@ -36,7 +36,15 @@
 			  {% for i in items.object_list %}
 			  
 			  <tr>
-				  <td><img  {% if i.image %} src="/media/{{ i.image }}" style='max-height: 46px; max-width: 46px' {% else %} src="/static/images/photo.jpg" {% endif %}  alt='{{ i.name }}' ></td>
+				  <td>
+                    {% if i.image %} 
+                        {% thumbnail i.image "x50" as im %}
+                            <img src="{{ im.url }}" alt="" alt='{{ i.name }}'/>
+                        {% endthumbnail %}
+                    {% else %} 
+                        <img src="/static/images/photo.jpg" />
+                    {% endif %}
+				  </td>
 				  <td>{{ i.art }}</td> 
 				  <td class="left">
 					<p><h3><a href="/item/{{ i.id }}">{{ i.name }}</a></h3>

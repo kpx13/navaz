@@ -63,42 +63,50 @@
         <p>Итого:<b>{{ cart_count }}</b>  ед. товара на <span class="red"> {{ cart_sum }}</span> руб.</p>
         <br />
     </div>
-    <div class="check-box">
-        <h5>Выбор типа оплаты</h5>
-            <div class="round cash">
-                <label for="radio">
-                    <img src="/static/images/cash-box.jpg"><h6>Оплата за наличные</h6>
-                </label>
-                <input type="radio" id="radio" name="radio">
-            </div>
-            <div class="round out"> 
-                <label for="robot"><img src="/static/images/robot.jpg"><h6>Безналичный расчет</h6></label>
-                <input type="radio" id="robot" name="radio">
-            </div>
-    </div>
+    {% if items and user.is_authenticated %}
+    <form method='POST'>
+        <div class="check-box">
+            <h5>Выбор типа оплаты</h5>
+                <div class="round cash">
+                    <label for="radio">
+                        <img src="/static/images/cash-box.jpg"><h6>Оплата за наличные</h6>
+                    </label>
+                    <input type="radio" id="radio" name="payment" value='1' checked=checked>
+                </div>
+                <div class="round out"> 
+                    <label for="robot"><img src="/static/images/robot.jpg"><h6>Безналичный расчет</h6></label>
+                    <input type="radio" id="robot" name="payment" value='2' disabled=disabled />
+                </div>
+        </div>
 
-    <div class="radio-box">
-        <h5>Выбор варианта доставки</h5>
-        <p>
-            <input type="radio" name="deliver" id="myself"><label for="myself">Самовывоз со склада:</label>
-        </p>
-        <ul>
-            <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
-            <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
-            <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
-        </ul>
-        <p><input type="radio" name="deliver" id="deliver"><label for="deliver">Доставка по Москве и МО</label></p>
-        <p><input type="radio" name="order" id="reg"><label for="reg"><img src="/static/images/man.png">Заказ без регистрации</label></p>
-        <p><label for="fio"><strong>ФИО</strong><input type="text" name="name" id="fio"></label></p>
-        <p><label for="tel"><strong>Телефон</strong><input type="text" name="tel" id="tel"></label></p>
-        <p><label for="time"><strong>Удобное время для звонка</strong><input type="text" placeholder="00" name="hour" id="time"  maxlength="2" /></label>:<input type="text" placeholder="00" name="minute" maxlength="2" id="time2"></p>
-        <p><input type="radio" name="order" id="order"><label for="order"><img src="/static/images/man2.png">Заказ с регистрацией</label></p>
-    </div>
-    <input type="button" id="forma" value="Оформить" name="forma" />
-    
-    <div id="comments">
-        <h5>Комментарии к заказу</h5>
-        <textarea></textarea>
-    </div>
+        <div class="radio-box">
+            <h5>Выбор варианта доставки</h5>
+            <p>
+                <input type="radio" name="deliver" value='1'><label for="myself">Самовывоз со склада:</label>
+            </p>
+            <ul>
+                <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
+                <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
+                <li>ул. Название, д. 54, офис 705, тел.: +7 (495) 234-56-78</li>
+            </ul>
+            <p><input type="radio" name="deliver" value='2'><label for="deliver">Доставка по Москве и МО</label></p>
+            <p><input type="radio" name="order" id="reg"><label for="reg"><img src="/static/images/man.png">Заказ без регистрации</label></p>
+            <p><label for="fio"><strong>ФИО</strong><input type="text" name="name" id="fio"></label></p>
+            <p><label for="tel"><strong>Телефон</strong><input type="text" name="tel" id="tel"></label></p>
+            <p><label for="time"><strong>Удобное время для звонка</strong><input type="text" placeholder="00" name="hour" id="time"  maxlength="2" /></label>:<input type="text" placeholder="00" name="minute" maxlength="2" id="time2"></p>
+            <p><input type="radio" name="order" id="order"><label for="order"><img src="/static/images/man2.png">Заказ с регистрацией</label></p>
+        </div>
+        <input type="submit" id="forma" value="Оформить" name="forma" />
+        
+        <div id="comments">
+            <h5>Комментарии к заказу</h5>
+            <textarea name='comment'></textarea>
+        </div>
+        <input type="hidden" name='action' value="to_order" />
+        {% csrf_token %}
+    </form>
+    {% else %}
+        <h4>Для оформления заказа Вам необходимо <a href='/accounts/register/'>зарегистрироваться</a>.</h4>
+    {% endif %}
 </div>
 {% endblock %}

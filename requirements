@@ -5,3 +5,5 @@ django-ckeditor==4.0.2
 django-filebrowser==3.5.1
 django-registration==0.8
 django-admin-tools
+Django-Keyedcache
+django-livesettings

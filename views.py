@@ -4,16 +4,18 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib import auth
 from django.core.context_processors import csrf
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from livesettings import config_value
 
 from request.forms import RequestForm
 from pages.models import Page
 from news.models import NewsItem
 from catalog.models import CarModel, Item, Color, Category
-from shop.models import Cart
+from shop.models import Cart, Order
+from sessionworking import SessionCartWorking
 
 ADMINS = ['annkpx@gmail.com']
 
@@ -39,7 +41,11 @@ def get_common_context(request):
     c['colors'] = Color.objects.all()
     c['categories'] = Category.objects.all()
     if request.user.is_authenticated():
-        c['cart_count'], c['cart_sum'] = Cart.get_goods_count_and_sum(c['user'])
+        c['cart_working'] = Cart
+        Cart.update(request.user, SessionCartWorking(request).pop_content())
+    else:
+        c['cart_working'] = SessionCartWorking(request)
+    c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum(request.user)
     c.update(csrf(request))
     return c
 
@@ -127,16 +133,33 @@ def cart_page(request):
     c = get_common_context(request)
     if request.method == 'POST':
         if request.POST['action'] == 'del_from_basket':
-            Cart.del_from_cart(request.user, request.POST['item_id'])
+            c['cart_working'].del_from_cart(request.user, request.POST['item_id'])
             messages.success(request, u'Товар был удален из корзины.')
             return HttpResponseRedirect(request.get_full_path())
-        elif request.POST['action'] == 'change_count':
-            Cart.change_count(request.user, request.POST['item_id'], request.POST['item_count'])
-            messages.success(request, u'Количество единиц товара было изменено.')
+        elif request.POST['action'] == 'plus':
+            c['cart_working'].count_plus(request.user, request.POST['item_id'])
             return HttpResponseRedirect(request.get_full_path())
+        elif request.POST['action'] == 'minus':
+            c['cart_working'].count_minus(request.user, request.POST['item_id'])
+            return HttpResponseRedirect(request.get_full_path())
+        elif request.POST['action'] == 'to_order':
+            comment = request.POST['comment']
+            deliv = int(request.POST['deliver'])
+            comment = comment + u"""
+Способ доставки: """
+            if deliv == 1:
+                comment = comment + u"Самовывоз со склада"
+            elif deliv == 2:
+                comment = comment + u"Доставка курьером по Москве"
+            elif deliv == 3:
+                comment = comment + u"Почтой"
+                
+            Order(user=request.user,
+                  comment=comment).save()
+            messages.success(request, u'Заказ отправлен. Ожидайте звонка.')
+            return HttpResponseRedirect('/')
     
-    
-    c['items'] = Cart.get_content(request.user)
+    c['items'] = c['cart_working'].get_content(request.user)
     return render_to_response('cart.html', c, context_instance=RequestContext(request))
 
 @view
@@ -146,14 +169,11 @@ def order_page(request):
 
 @view
 def item_page(request, item_id):
+    c = get_common_context(request)
     if request.method == 'POST':
         if request.POST['action'] == 'add_in_basket':
-            try:
-                Cart.add_to_cart(request.user, request.POST['item_id'])
-                messages.success(request, u'Товар был добавлен в корзину.')
-            except:
-                messages.error(request, u"Перед добавлением товара в корзину необходимо <a href='/accounts/register/'>зарегистрироваться</a>.")
-    c = get_common_context(request)
+            c['cart_working'].add_to_cart(request.user, request.POST['item_id'])
+            messages.success(request, u'Товар был добавлен в корзину.')
     c['item'] = Item.get(item_id)
     return render_to_response('item.html', c, context_instance=RequestContext(request))
 
@@ -181,8 +201,7 @@ def other_page(request, page_name):
         c.update(Page.get_page_by_slug(page_name))
         return render_to_response('page.html', c, context_instance=RequestContext(request))
     except:
-        return HttpResponseNotFound('page not found')
-        #return render_to_response('base.html', c, context_instance=RequestContext(request))
+        raise Http404()
 
 def login_user(request, c):
     form = AuthenticationForm(request.POST)

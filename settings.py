@@ -150,9 +150,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'users',
     'ckeditor',
-    'grappelli',
+
     'filebrowser',
-    
+    'livesettings',
     'registration',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -213,6 +213,11 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+LIVESETTINGS_OPTIONS = {   1: {   'DB': True,
+           'SETTINGS': {   u'MyApp': {   u'DECIMAL_TEST': u'34.0923443',
+                                         u'MEASUREMENT_SYSTEM': u'["metric"]',
+                                         u'STRING_TEST': u'Orange'}}}}
+
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'uploads')
@@ -228,6 +233,7 @@ ACCOUNT_ACTIVATION_DAYS = 2
 AUTH_USER_EMAIL_UNIQUE = True
 DEFAULT_FROM_EMAIL = 'noreply@navaz.ru'
 GRAPPELLI_ADMIN_TITLE = 'naVAZ.ru'
+SEND_ALERT_EMAIL = ['annkpx@gmail.com']
 
 try:
     from dev import *

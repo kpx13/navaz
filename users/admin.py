@@ -17,4 +17,4 @@ class ExtUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, ExtUserAdmin)
-admin.site.register(RobokassaOperation)
+#admin.site.register(RobokassaOperation)
