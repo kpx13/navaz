@@ -40,25 +40,6 @@ class CustomIndexDashboard(Dashboard):
                 [_('Log out'), reverse('%s:logout' % site_name)],
             ]
         ))
-
-        # append an app list module for "Applications"
-        self.children.append(modules.AppList(
-            _('Applications'),
-            exclude=('django.contrib.*',),
-        ))
-
-        # append a recent actions module
-        self.children.append(modules.RecentActions(_('Recent Actions'), 5))
-
-        self.children.append(
-            modules.ModelList(
-                title = u'Пользователи',
-                models=(
-                    'django.contrib.auth.*',
-                    'users.models.Profile',
-                ),
-            )
-        )
         
         self.children.append(
             modules.ModelList(
@@ -75,10 +56,47 @@ class CustomIndexDashboard(Dashboard):
                 title = u'Каталог',
                 models=(
                     'catalog.category.Category',
+                    'catalog.car_model.CarModel',
+                    'catalog.item.Color',
                     'catalog.item.Item',
                 ),
             )
         )
+
+        self.children.append(
+            modules.ModelList(
+                title = u'Магазин',
+                models=(
+                    'shop.models.Order',
+                    'shop.models.Cart',
+                ),
+            )
+        )
+
+        # append a recent actions module
+        self.children.append(modules.RecentActions(_('Recent Actions'), 5))
+
+        self.children.append(
+            modules.ModelList(
+                title = u'Пользователи',
+                models=(
+                    'django.contrib.auth.*',
+                    'users.models.Profile',
+                ),
+            )
+        )
+        
+        
+        self.children.append(
+            modules.ModelList(
+                title = u'Сообщения',
+                models=(
+                    'request.models.Request',
+                ),
+            )
+        )
+        
+        
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

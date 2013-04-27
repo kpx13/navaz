@@ -9,8 +9,8 @@ class NewsItem(models.Model):
     position = models.IntegerField(blank=True, default = 100, verbose_name=u'Позиция в списке')
     
     class Meta:
-        verbose_name = u'новость'
-        verbose_name_plural = u'новости'
+        verbose_name = u'статья'
+        verbose_name_plural = u'статьи'
         ordering = ['-position']
         
     def __unicode__(self):

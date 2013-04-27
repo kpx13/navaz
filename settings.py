@@ -233,6 +233,7 @@ ACCOUNT_ACTIVATION_DAYS = 2
 AUTH_USER_EMAIL_UNIQUE = True
 DEFAULT_FROM_EMAIL = 'noreply@navaz.ru'
 GRAPPELLI_ADMIN_TITLE = 'naVAZ.ru'
+SEND_ALERT_EMAIL = ['annkpx@gmail.com']
 
 try:
     from dev import *

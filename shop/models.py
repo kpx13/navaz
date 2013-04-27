@@ -9,12 +9,16 @@ from django.template import Context, Template
 
 from catalog.item import Item
 
+def sendmail(subject, body):
+    mail_subject = ''.join(subject)
+    send_mail(mail_subject, body, settings.DEFAULT_FROM_EMAIL,
+        settings.SEND_ALERT_EMAIL)
+
 class Cart(models.Model):
     user = models.ForeignKey(User, verbose_name=u'пользователь')
     item = models.ForeignKey(Item, verbose_name=u'товар')
     count = models.IntegerField(default=1, verbose_name=u'количество')
     date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u'дата добавления')
-    
     
     class Meta:
         verbose_name = u'товар в корзине'
@@ -75,10 +79,6 @@ class Cart(models.Model):
         cart = Cart.get_content(user)
         return (sum([x.count for x in cart]), sum([x.count * x.item.price for x in cart]))
 
-def sendmail(subject, body):
-    mail_subject = ''.join(subject)
-    send_mail(mail_subject, body, settings.DEFAULT_FROM_EMAIL,
-        settings.SEND_ALERT_EMAIL)
 
 
 class Order(models.Model):
