@@ -174,6 +174,7 @@ def item_page(request, item_id):
         if request.POST['action'] == 'add_in_basket':
             c['cart_working'].add_to_cart(request.user, request.POST['item_id'])
             messages.success(request, u'Товар был добавлен в корзину.')
+	    return HttpResponseRedirect(request.get_full_path())
     c['item'] = Item.get(item_id)
     return render_to_response('item.html', c, context_instance=RequestContext(request))
 
